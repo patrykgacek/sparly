@@ -1,0 +1,2 @@
+# Folder Pages
+Tutaj w moim zamyśle znajdą się te główne widoki aplikacji. Czyli tam strona głwona, zakładka oszczędności, zakładka z ustawieniami, zakładka jakaś tam. no i też ekran logowania i rejestracji.
