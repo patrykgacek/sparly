@@ -4,7 +4,7 @@ Przygotowanie w sekcji "Wymagane rzeczy" i uruchomienie aplikacji w sekcji "Pier
 ## Poradnik - chyba obowiązkowy 😄 
 Polecam kanał "Twórca stron" na YT a dokładnie ten [filmik](https://youtu.be/Qz7swLxNS0Y). W nim przez pierwsze 42 minuty jest takie wprowadzenie, a dopiero od 42 minuty jest pokazane to środowisko w jakim będziemy pracować hahah. Pozatym On tam też pokazuje też coś takiego jak komponenty klasowe, my będziemy używali tylko komponentów funkcyjnych. Polecam obejrzenie tego filmu całego, ja go dawno temu oglądałem i nie pamietam już co tam mówił dokładnie, ale wiem na pewno, że w jasny sposób pokaże co to jest React i dlaczego się go stosuje i po prostu jak się tworzy te komponenty.
 
-Ewentualnie jest też [Samouczek Reacta](https://pl.reactjs.org/tutorial/tutorial.html) po polsku i też tak fajnie wprowadza w reacta, ale to jest w formie czytania. Ja wolę słuchać kogoś i patrzeć jak pokazuje, ale jak kto woli.
+Ewentualnie jest też [Samouczek Reacta](https://pl.reactjs.org/tutorial/tutorial.html) po polsku i też tak fajnie wprowadza w reacta, ale to jest w formie czytania.
 
 Z firebasem ja się muszę zaznajomić też, ale najważniejsze dwa pojęcia z backendem przy tworzeniu stron internetowych to "zapytania do API" i format "JSON"
 
@@ -30,7 +30,7 @@ Jak sklonujecie z repozytorium to trzeba dobudować do tego projektu resztę pli
 - Potem już tylko używamy ```yarn start``` do odpalenia serwera
 
 ## Zasady commitowania zmian
-- to co będzie commitowane na main powinno działać, to znaczy, że nie dopuśćmy do sytuacji, że ktoś używa ```git pull``` żeby pobrać aktualną wersję z repo i nie może uruchomić serwera bo są jakieś błędy. Zawsze przed git-commit-push w konsoli na być ładny napis "Compiled successfully!".
+- to co będzie commitowane na main powinno działać, to znaczy, że nie dopuśćmy do sytuacji, że ktoś używa ```git pull``` żeby pobrać aktualną wersję z repo i nie może uruchomić serwera bo są jakieś błędy. Zawsze przed git-add-commit-push w konsoli ma być ładny napis "Compiled successfully!".
 - Najlepiej też usuwać jakieś pomniejsze błędy typu "nieużyta zmienna" - one będą się pokazywać w konsoli po uruchomieniu serwera.
 
 ##### W sprawie samego git'a
