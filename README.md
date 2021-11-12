@@ -30,7 +30,7 @@ Jak sklonujecie z repozytorium to trzeba dobudować do tego projektu resztę pli
 - Potem już tylko używamy ```yarn start``` do odpalenia serwera
 
 ## Zasady commitowania zmian
-- to co będzie commitowane na main powinno działać, to znaczy, że nie dopuśćmy do sytuacji, że ktoś używa ```git pull``` żeby pobrać aktualną wersję z repo i nie może uruchomić serwera bo są jakieś błędy. Zawsze przed git-commit-push w konsoli na być ładny napis "Compiled successfully!".
+- to co będzie commitowane na main powinno działać, to znaczy, że nie dopuśćmy do sytuacji, że ktoś używa ```git pull``` żeby pobrać aktualną wersję z repo i nie może uruchomić serwera bo są jakieś błędy. Zawsze przed git-add-commit-push w konsoli ma być ładny napis "Compiled successfully!".
 - Najlepiej też usuwać jakieś pomniejsze błędy typu "nieużyta zmienna" - one będą się pokazywać w konsoli po uruchomieniu serwera.
 
 ##### W sprawie samego git'a
