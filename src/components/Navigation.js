@@ -1,12 +1,19 @@
-import { Link } from "react-router-dom";
+import { faCog, faHome, faSignOutAlt, faVirus } from "@fortawesome/free-solid-svg-icons";
+import NavItem from "./NavItem";
 
 const Navigation = () => {
     return (
-        <ul>
-            <li><Link to='/'>🍓 Home</Link></li>
-            <li><Link to='/dashboard'>🍓 Dashboard</Link></li>
-            <li><Link to='/settings'>🍓 Ustawienia </Link></li>
-        </ul>
+        <div className="md:w-56 p-3">
+            <div className="h-full md:overflow-auto">
+                    <NavItem icon={faSignOutAlt} to='/'>Logout</NavItem>
+                    <NavItem icon={faHome} to='/dashboard'>Dashboard</NavItem>
+                    <NavItem icon={faCog} to='/settings'>Settings</NavItem>
+                    <NavItem icon={faVirus} to='/'>Inne</NavItem>
+                    <NavItem icon={faVirus} to='/'>Inne</NavItem>
+                    <NavItem icon={faVirus} to='/'>Inne</NavItem>
+                    <NavItem icon={faVirus} to='/'>Inne</NavItem>
+            </div>
+        </div>
     )
 }
 

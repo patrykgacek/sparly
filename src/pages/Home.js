@@ -4,7 +4,7 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 const Home = () => {
     return (
-        <main className="bg-green-200 h-screen antialiased text-center flex justify-center md:justify-start items-center">
+        <main className="bg-gradient-to-br from-green-200 via-blue-100 to-green-200 h-screen antialiased text-center flex justify-center md:justify-start items-center">
             <div className="max-w-xs lg:max-w-lg md:ml-16">
                 <header className="font-black text-7xl text-gray-900 filter drop-shadow-md lg:text-9xl">
                     Sparly
