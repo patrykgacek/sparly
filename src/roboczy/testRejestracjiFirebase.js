@@ -1,7 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth"
+import { ref, set, onValue } from "firebase/database";
 import { auth } from "../firebase";
+import { database } from "../firebase";
 
-const testRejestracji = () => {
+const Fb = () => {
     
     const register = () => {
         
@@ -22,12 +24,38 @@ const testRejestracji = () => {
             console.log(errorMessage);
         });
     }
+
+    const wpisuj = () => {
+        console.dir(set(ref(database, 'boczek'), {
+            pole1: "xd",
+            pole2: "xdssss2",
+            pole3: "xd3"
+        }))
+    }
+
+    const czytaj = () => {
+        console.dir(onValue(ref(database, 'tabelka'), snapshot => {
+            const data = snapshot.val()
+            console.dir(data)
+            console.log(data.pole1);
+        }))
+    }
     
     return (
+        <>
         <button onClick={register}>
             Rejestruj
         </button>
+        <hr/>
+        <button onClick={wpisuj}>
+            Wpisz do bazy
+        </button>
+        <hr/>
+        <button onClick={czytaj}>
+            czytaj
+        </button>
+        </>
     )
 }
 
-export default testRejestracji
+export default Fb
