@@ -41,23 +41,7 @@ const Savings = () => {
                                     >
                                     <input
                                         type="text"
-                                        className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        mx-2
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
+                                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="exampleFormControlInput1"
                                         placeholder="Nazwa celu"
                                     />
@@ -69,23 +53,7 @@ const Savings = () => {
                                     >
                                     <input
                                         type="number"
-                                        className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        mx-2
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
+                                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="exampleNumber0"
                                         placeholder="Kwota"
                                     />
@@ -97,23 +65,57 @@ const Savings = () => {
                                     >
                                     <input
                                         type="text"
-                                        className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        mx-2
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
+                                        className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding  border border-solid border-gray-300  rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none "
+                                        id="exampleFormControlInput1"
+                                        placeholder="dd-mm-rrrr"
+                                    />
+
+                                </div>
+
+<button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10">Zatwierdź</button>
+
+                            </div>
+
+                        )
+
+
+                    }
+
+                    {
+                        isCancelForm ? ("") : (
+                            
+                            <div class="flex justify-center mt-5">
+                                <div className="mb-3 lg:w-60">
+                                    <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    >Nazwa celu</label
+                                    >
+                                    <input
+                                        type="text"
+                                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        id="exampleFormControlInput1"
+                                        placeholder="Nazwa celu"
+                                    />
+
+                                </div>
+                                <div className="mb-3 lg:w-60">
+                                    <label for="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    >Kwota</label
+                                    >
+                                    <input
+                                        type="number"
+                                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        id="exampleNumber0"
+                                        placeholder="Kwota"
+                                    />
+                                </div>
+                                
+                                <div className="mb-3 lg:w-60">
+                                    <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    >Data ukończenia celu</label
+                                    >
+                                    <input
+                                        type="text"
+                                        className="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding  border border-solid border-gray-300  rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none "
                                         id="exampleFormControlInput1"
                                         placeholder="dd-mm-rrrr"
                                     />
@@ -130,7 +132,11 @@ const Savings = () => {
                     }
 
                 </div>
-                <div className="border-solid border-2 border-black-600 h-32 py-auto text-3xl rounded-md">Cel #1</div>
+                <div className="border-solid border-2 border-black-600 h-32 py-auto text-3xl rounded-md">
+                <div className="w-1/3 border-solid border-2 border-black-600">1</div>
+                <div className="w-1/3 border-solid border-2 border-black-600">2</div>
+                <div className="w-1/3 border-solid border-2 border-black-600">3</div>
+                </div>
                 <div className="border-solid border-2 border-black-600 h-32 py-auto text-3xl rounded-md">Cel #2</div>
 
 
