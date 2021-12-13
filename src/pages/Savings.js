@@ -34,7 +34,7 @@ const Savings = () => {
                     </div>
                     {
                         isAddForm ? ("") : (
-                            <div class="justify-center mt-5">
+                            <div class="flex justify-center mt-5">
                                 <div className="mb-3 lg:w-60">
                                     <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                     >Nazwa celu</label
