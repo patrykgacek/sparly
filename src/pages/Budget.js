@@ -1,11 +1,11 @@
 import Layout from "../components/Layout";
 
-const Dashboard = () => {
+const Budget = () => {
     return (
         <Layout>
-            <div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div><div>Panel główny</div>
+            <div>Panel główny</div>
         </Layout>
     )
 }
 
-export default Dashboard;
+export default Budget;
