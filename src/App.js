@@ -8,8 +8,9 @@ import Dashboard from "./pages/Dashboard"
 import Settings from "./pages/Settings"
 import Statistics from "./pages/Statistics"
 import Savings from "./pages/Savings"
-import FindMore from "./pages/FindMore"
+import LearnMore from "./pages/LearnMore"
 import Fb from "./roboczy/testRejestracjiFirebase"
+import Article01 from "./articles/Article01"
 
 
 const App = () => {
@@ -19,11 +20,13 @@ const App = () => {
             <Route path='dashboard' element={ <Dashboard /> } />
             <Route path='statistics' element={ <Statistics /> } />
             <Route path='savings' element={ <Savings /> } />
-            <Route path='findmore' element={ <FindMore /> } />
+            <Route path='learnmore' element={ <LearnMore /> } />
             <Route path='settings' element={ <Settings /> } />
 
+            {/* Articles paths: */}
+            <Route path='learnmore/article01' element={ <Article01 /> } />
 
-            {/* Ścieżki deweloperskie: */}
+            {/* Developer paths: */}
             <Route path='app' element={ <App2 /> } />
             <Route path='inny' element={ <Inny /> } />
             <Route path='fb' element={ <Fb /> } />
