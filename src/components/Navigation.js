@@ -8,7 +8,7 @@ const Navigation = () => {
                     <NavItem icon={faPiggyBank} to='/savings'>Savings</NavItem>
                     <NavItem icon={faChartPie} to='/statistics'>Statistics</NavItem>
                     <NavItem icon={faCoins} to='/dashboard'>Budget</NavItem>
-                    <NavItem icon={faInfo} to='/findmore'>Find more</NavItem>
+                    <NavItem icon={faInfo} to='/learnmore'>Learn more</NavItem>
                     <NavItem icon={faCog} to='/settings'>Settings</NavItem>
                     <NavItem icon={faSignOutAlt} to='/'>Logout</NavItem>
             </div>

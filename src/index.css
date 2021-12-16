@@ -5,3 +5,11 @@
 .active {
     background-color: rgb(229, 231, 235);
 }
+
+.learnmorestyle {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: row
+}
