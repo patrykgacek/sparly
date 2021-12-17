@@ -15,20 +15,18 @@ const Dashboard = () => {
     return (
         <Layout>
             <div className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}> Budget</div>
-            <h4>Your Budget</h4>
-            <h1 id="stankonta">1498.00 $</h1>
-            <div className="flex justify-left">
+            <div className="flex justify-center">
                 <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Dodaj}>Change Budget</button>
             </div>
             {
                 isButtonPressed ? ("") :
-                    <div className="flex justify-left">
+                    <div className="flex justify-center">
                         <div className="mb-3 xl:w-100">
-                            <div className="flex justify-left">
-                                <div className="mb-3 xl:w-1/5">
+                            <div className="flex justify-center">
+                                <div className="mb-3 xl:w-1/3">
                                     <select className="form-select appearance-none
                                      block
-                                     w-30
+                                     w-64
                                      px-3
                                      py-1.5
                                      text-base
@@ -41,17 +39,17 @@ const Dashboard = () => {
                                      ease-in-out
                                      m-0
                                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                        <option value="1">Add</option>
-                                        <option value="2">Subtract</option>
+                                        <option value="1">Add Income</option>
+                                        <option value="2">Add Expense</option>
                                     </select>
                                 </div>
-                                <div className="mb-3 xl:w-1/2">
+                                <div className="mb-3 xl:w-1/3">
                                     <input
                                         type="number"
                                         className="
                                          form-control
                                          block
-                                         w-44
+                                         w-50
                                          px-3
                                          py-1.5
                                          text-base
