@@ -1,4 +1,5 @@
 import { faChartPie, faCog, faCoins, faInfo, faPiggyBank, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
 import NavItem from "./NavItem";
 
@@ -16,8 +17,10 @@ const Navigation = ({balance, userName, currencySymbol, familyName}) => {
                     <NavItem icon={faCog} to='/settings'>Settings</NavItem>
                     <NavItem icon={faSignOutAlt} to='/'>Logout</NavItem>
                     <p className="mt-5 text-center text-xs text-gray-400 invisible md:visible">
-                        <span dangerouslySetInnerHTML={{ "__html": "&copy; " }} />
-                        Sparly 2021
+                        <Link to="/authors">
+                            <span dangerouslySetInnerHTML={{ "__html": "&copy; " }} />
+                            Sparly 2021
+                        </Link>
                     </p>
             </div>
         </div>

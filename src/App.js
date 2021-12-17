@@ -10,6 +10,7 @@ import Statistics from "./pages/Statistics"
 import Savings from "./pages/Savings"
 import LearnMore from "./pages/LearnMore"
 import Fb from "./roboczy/testRejestracjiFirebase"
+import Authors from "./pages/Authors"
 import Article01 from "./articles/Article01"
 
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='savings' element={ <Savings /> } />
             <Route path='learnmore' element={ <LearnMore /> } />
             <Route path='settings' element={ <Settings /> } />
+            <Route path='authors' element={ <Authors /> } />
 
             {/* Articles paths: */}
             <Route path='learnmore/article01' element={ <Article01 /> } />
