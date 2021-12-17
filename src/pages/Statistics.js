@@ -26,17 +26,18 @@ const Statistics = () => {
     return (
         <Layout>
             <div style={{display: 'flex',flexDirection:'column',  rowGap:'10px', flexDirection:'column'}}>
-                <div style={{position:'fixed', top:'0', zIndex:'100',backgroundColor:'rgba(255,255,255,0.8)',boxShadow:'-1px 15px 15px -10px rgba(66, 68, 90, 0.3)', backdropFilter:'blur(7px)', display: 'flex', width:'100%', height:'40px', alignItems:'center', justifyContent:'center', columnGap:'20px'}}>
-                    <span>From</span>
-                    <input type="date" ></input>
-                    <span>To</span>
-                    <input type="date" ></input>
+                <div  className={`border-solid border-2 border-black-600 `} style={{display:'flex', flexDirection:'row', columnGap:'10px', alignItems:'center', justifyContent:'center', maxHeight:'55px'}}>
+                    <span >From</span>
+                    <input type="date" style={{border:'2px solid rgb(37, 99, 235)'}}></input>
+                    <span >To</span>
+                    <input type="date" style={{border:'2px solid rgb(37, 99, 235)'}}></input>
+                    <button type="button" class="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Show</button>
                 </div>
             
                 <div style={{ display: 'flex', flexDirection:'row',flexWrap:'wrap', justifyContent:'space-evenly', backgroundColor:'white', flexGrow:'1'}}>
-                    <div>
+                    <div  className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}>
                         <Chart
-                          width={'900px'}
+                          width={'1100px'}
                           height={'400px'}
                         chartType="ColumnChart"
                         loader={<div>Loading Chart</div>}
@@ -55,9 +56,9 @@ const Statistics = () => {
                         legendToggle
                         />
                     </div>
-                    <div>
+                    <div  className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}>
                         <Chart
-                           width={'900px'}
+                           width={'1100px'}
                            height={'500px'}
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
