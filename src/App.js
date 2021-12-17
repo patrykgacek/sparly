@@ -12,6 +12,8 @@ import LearnMore from "./pages/LearnMore"
 import Fb from "./roboczy/testRejestracjiFirebase"
 import Authors from "./pages/Authors"
 import Article01 from "./articles/Article01"
+import SignIn from "./pages/SignIn"
+import SignUp from "./pages/SignUp"
 
 
 const App = () => {
@@ -24,6 +26,8 @@ const App = () => {
             <Route path='learnmore' element={ <LearnMore /> } />
             <Route path='settings' element={ <Settings /> } />
             <Route path='authors' element={ <Authors /> } />
+            <Route path='signin' element={ <SignIn /> } />
+            <Route path='signup' element={ <SignUp /> } />
 
             {/* Articles paths: */}
             <Route path='learnmore/article01' element={ <Article01 /> } />
