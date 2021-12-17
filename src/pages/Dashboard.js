@@ -100,7 +100,7 @@ const Dashboard = () => {
                                                 1000.00
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                Ktoś
+                                                06/12/2021
                                             </td>
                                             <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edytuj</button>
                                             <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Usuń</button>
@@ -112,7 +112,7 @@ const Dashboard = () => {
                                                 -2.00
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                Ktoś Inny
+                                                10/12/2021
                                             </td>
                                             <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edytuj</button>
                                             <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Usuń</button>
@@ -123,7 +123,7 @@ const Dashboard = () => {
                                                 500.00
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                Bajetan Bozłowski
+                                                11/12/2021
                                             </td>
                                             <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edytuj</button>
                                             <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Usuń</button>
