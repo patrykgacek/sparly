@@ -14,11 +14,11 @@ const Dashboard = () => {
     }
     return (
         <Layout>
-            <div className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}> Budżet</div>
-            <h4>Dostępne środki:</h4>
-            <h1 id="stankonta">1498.00</h1>
+            <div className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}> Budget</div>
+            <h4>Your Budget</h4>
+            <h1 id="stankonta">1498.00 $</h1>
             <div className="flex justify-left">
-                <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Dodaj}>Dodaj</button>
+                <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Dodaj}>Change Budget</button>
             </div>
             {
                 isButtonPressed ? ("") :
@@ -41,8 +41,8 @@ const Dashboard = () => {
                                      ease-in-out
                                      m-0
                                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                        <option value="1">Dochód</option>
-                                        <option value="2">Wydatek</option>
+                                        <option value="1">Add</option>
+                                        <option value="2">Subtract</option>
                                     </select>
                                 </div>
                                 <div className="mb-3 xl:w-1/2">
@@ -66,15 +66,15 @@ const Dashboard = () => {
                                          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                          "
                                         id="exampleNumber0"
-                                        placeholder="Ilość"
+                                        placeholder="Amount"
                                     />
                                 </div>
-                                <button className="w-44 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Zatwierdź</button>
+                                <button className="w-44 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Confirm</button>
                             </div>
                         </div>
                     </div>
             }
-            <div className="border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md">Historia
+            <div className="border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md">Budget History
                 <div className="flex flex-col">
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 inline-block w-100 sm:px-6 lg:px-8">
@@ -86,10 +86,10 @@ const Dashboard = () => {
                                                 #
                                             </th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 w-1/3 px-6 py-4 text-left">
-                                                Ilość
+                                                Amount
                                             </th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 w-1/3 px-6 py-4 text-left">
-                                                Data
+                                                Date
                                             </th>
                                         </tr>
                                     </thead>
@@ -102,8 +102,8 @@ const Dashboard = () => {
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 06/12/2021
                                             </td>
-                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edytuj</button>
-                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Usuń</button>
+                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edit</button>
+                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Delete</button>
                                         </tr>
                                         
                                         <tr className="bg-white border-b">
@@ -114,8 +114,8 @@ const Dashboard = () => {
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 10/12/2021
                                             </td>
-                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edytuj</button>
-                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Usuń</button>
+                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edit</button>
+                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Delete</button>
                                         </tr>
                                         <tr className="bg-white border-b">
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
@@ -125,8 +125,8 @@ const Dashboard = () => {
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 11/12/2021
                                             </td>
-                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edytuj</button>
-                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Usuń</button>
+                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Edit</button>
+                                            <button className="w-40 h-10  border-solid border-2 rounded-md text-lg  hover:bg-black-100" onClick={Zatwierdź}>Delete</button>
                                         </tr>
                                     </tbody>
                                 </table>
