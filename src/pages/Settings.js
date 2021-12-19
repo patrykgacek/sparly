@@ -118,22 +118,22 @@ const Settings = () => {
             <div className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md `}>
                 Family Settings
                 <div class="flex justify-left mt-5 space-x-2">
-                    <label  className="form-label text-2xl inline-block mb-2 text-gray-700">Family Name: </label>
-                    <label  className="form-label text-xl inline-block mb-2 text-gray-700"> Kowalscy </label>
-                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg ml-1">Change name</button>    
+                    <label  className="pl-5 form-label text-2xl inline-block mb-2 text-gray-700">Family Name: </label>
+                    <label  className="form-label text-xl inline-block mb-2 mt-1 text-gray-700"> Kowalscy </label>
+                    <button className="pl-5 w-44 h-10 border-solid border-2 rounded-md text-lg ml-1">Change name</button>    
                 </div>
                 <div class="flex justify-left mt-5 space-x-2">
-                    <label className="form-label text-x1 inline-block mb-1 text-gray-700">Members</label> 
+                    <label className="pl-6 w-44 form-label text-x1 inline-block mb-1 text-gray-700">Members</label> 
                 </div>
                     <div class="flex justify-left space-x-2">
-                    <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-1">Add Member</button>   
+                    <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-4">Add Member</button>   
                 </div>
                 <div class="flex justify-left mt-5 space-x-2">
-                    <label className="form-label text-xl inline-block mb-1 text-gray-700">Bożena</label>
+                    <label className="pl-5 w-44 form-label text-xl inline-block mb-1 text-gray-700">Bożena</label>
                     <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-1">Delete Member</button>     
                 </div>
                     <div class="flex justify-left mt-5 space-x-2">
-                    <label className="form-label text-xl inline-block mb-1 text-gray-700">Janusz</label>
+                    <label className="pl-5 w-44 form-label text-xl inline-block mb-1 text-gray-700">Janusz</label>
                     <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-1">Delete Member</button>     
                 </div>
             </div>
