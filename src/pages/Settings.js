@@ -6,7 +6,11 @@ const Settings = () => {
     const [isEmailValue,setEmailValue]=useState('');
     const [isPassConfirm, setPassConfirm] = useState(true);
     const [isPassValue,setPassValue]=useState('');
-    const zmien2 = () => {
+    var familyName ="Kowalscy";
+    var familyMembers =["Bożena","Janusz"];
+    var UserName ="Studenci";
+    var UserUID ="";
+    const changeEmail = () => {
         if(document.getElementById("NewEmailText").value!=="")
         {
             setEmailConfirm(false);
@@ -20,7 +24,7 @@ const Settings = () => {
         }
 
     }
-    const zmien3 = () => {
+    const changePassword = () => {
         if(document.getElementById("NewPasswordText").value!=="")
         {
             setPassConfirm(false);
@@ -34,6 +38,9 @@ const Settings = () => {
         }
 
     }
+    const addFamilyMember = () => {}
+    const deleteFamilyName =() => {}
+    const deleteFamilyMember = () => {}
     return (
         <Layout>
             <main>
@@ -61,7 +68,7 @@ const Settings = () => {
                          />
                     </div>
                     <div className="w-100 mx-auto mt-2">
-                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={zmien2}>Confirm</button> 
+                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={changeEmail}>Confirm</button> 
                     {
                         isEmailConfirm ? ("") : 
                         
@@ -99,7 +106,7 @@ const Settings = () => {
                          />
                     </div>
                     <div className="w-100 mx-auto mt-2">
-                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={zmien3}>Confirm</button> 
+                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={changePassword}>Confirm</button> 
                     {
                         isPassConfirm ? ("") : 
                         
@@ -119,7 +126,7 @@ const Settings = () => {
                 Family Settings
                 <div class="flex justify-left mt-5 space-x-2">
                     <label  className="pl-5 form-label text-2xl inline-block mb-2 text-gray-700">Family Name: </label>
-                    <label  className="form-label text-xl inline-block mb-2 mt-1 text-gray-700"> Kowalscy </label>
+                    <label  className="form-label text-xl inline-block mb-2 mt-1 text-gray-700"> {familyName} </label>
                     <button className="pl-5 w-44 h-10 border-solid border-2 rounded-md text-lg ml-1">Change name</button>    
                 </div>
                 <div class="flex justify-left mt-5 space-x-2">
@@ -129,11 +136,11 @@ const Settings = () => {
                     <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-4">Add Member</button>   
                 </div>
                 <div class="flex justify-left mt-5 space-x-2">
-                    <label className="pl-5 w-44 form-label text-xl inline-block mb-1 text-gray-700">Bożena</label>
+                    <label className="pl-5 w-44 form-label text-xl inline-block mb-1 text-gray-700">{familyMembers[0]}</label>
                     <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-1">Delete Member</button>     
                 </div>
                     <div class="flex justify-left mt-5 space-x-2">
-                    <label className="pl-5 w-44 form-label text-xl inline-block mb-1 text-gray-700">Janusz</label>
+                    <label className="pl-5 w-44 form-label text-xl inline-block mb-1 text-gray-700">{familyMembers[1]}</label>
                     <button className="w-44 h-8 border-solid border-2 rounded-md text-lg ml-1">Delete Member</button>     
                 </div>
             </div>
