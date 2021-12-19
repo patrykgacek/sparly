@@ -104,9 +104,9 @@ const Statistics = () => {
                 </div>
             
                 <div style={{ display: 'flex', flexDirection:'row',flexWrap:'wrap', justifyContent:'space-evenly', backgroundColor:'white', flexGrow:'1'}}>
-                    <div  className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}>
+                    <div  className={`border-solid border-2 border-black-600 `}>
                         <Chart
-                          width={'1100px'}
+                          width={'100%'}
                           height={'400px'}
                         chartType="ColumnChart"
                         loader={<div>Loading Chart</div>}
@@ -127,7 +127,7 @@ const Statistics = () => {
                     </div>
                     <div  className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}>
                         <Chart
-                           width={'1100px'}
+                           width={'100%'}
                            height={'500px'}
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
