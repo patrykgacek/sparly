@@ -14,6 +14,7 @@ import Authors from "./pages/Authors"
 import Article01 from "./articles/Article01"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
+import BazaTesty from "./roboczy/BazaTesty"
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
             <Route path='learnmore/article01' element={ <Article01 /> } />
 
             {/* Developer paths: */}
+            <Route path='baza' element={ <BazaTesty /> } />
             <Route path='app' element={ <App2 /> } />
             <Route path='inny' element={ <Inny /> } />
             <Route path='fb' element={ <Fb /> } />
