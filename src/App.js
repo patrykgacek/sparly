@@ -1,5 +1,3 @@
-//import TestRejestracji from './roboczy/testRejestracjiFirebase'
-
 import { Routes, Route } from "react-router"
 import Home from "./pages/Home"
 import Inny from "./roboczy/Inny"
