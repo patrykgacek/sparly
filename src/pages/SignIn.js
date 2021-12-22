@@ -1,31 +1,53 @@
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
-import { Link } from "react-router-dom"
-import Input from "../components/Input"
-import { auth } from "../firebase"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [alert, setAlert] = useState('')
+    const [loading, setLoading] = useState(false)
+    const { signin } = useAuth()
+    const navigate = useNavigate()
 
     const handleEmail = e => setEmail(e.target.value)
     const handlePassword = e => setPassword(e.target.value)
 
-    const login = () => {
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            console.dir(user)
-        })
-        .catch((error) => {
+    const login = async e => {
+        e.preventDefault()
+
+        try {
+            setLoading(true)
+            await signin(email, password)
+            navigate('/')
+        } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.dir(errorCode)
             console.dir(errorMessage)
+
             setAlert(errorMessage)
-        });
+        }
+
+        setLoading(false)
+
+
+
+        // signInWithEmailAndPassword(auth, email, password)
+        // .then((userCredential) => {
+        //     // Signed in 
+        //     const user = userCredential.user;
+        //     console.dir(user)
+        // })
+        // .catch((error) => {
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //     console.dir(errorCode)
+        //     console.dir(errorMessage)
+        //     setAlert(errorMessage)
+        // });
     }
 
     const validateEmail = () => {
@@ -104,7 +126,9 @@ const SignIn = () => {
                 </div>  
                 ) : ("")
                 }
-                <button onClick={login} to="/dashboard" className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Login</button>
+                <button onClick={login} disabled={loading} to="/dashboard" className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                    {loading ? (<FontAwesomeIcon icon={faSpinner} spin />) : ('Login')}
+                </button>
             </div>
         </div>
     )

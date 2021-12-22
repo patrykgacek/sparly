@@ -1,8 +1,8 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Link } from "react-router-dom"
-import Input from "../components/Input"
-import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext";
 
 
 const SignUp = () => {
@@ -11,28 +11,36 @@ const SignUp = () => {
     const [password, setPassword] = useState('')
     const [rPassword, setRPassword] = useState('')
     const [alert, setAlert] = useState('')
+    const [loading, setLoading] = useState(false)
+    const { signup } = useAuth()
+    const navigate = useNavigate()
 
     const handleEmail = e => setEmail(e.target.value)
     const handlePassword = e => setPassword(e.target.value)
     const handleRPassword = e => setRPassword(e.target.value)
 
-    const register = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                console.dir(user)
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.dir(errorCode)
-                console.dir(errorMessage)
+    const register = async e => {
+        e.preventDefault()
 
-                if (errorMessage == "Firebase: Error (auth/invalid-email).") setAlert("invalid-email")
-                else setAlert(errorMessage)
-                
-            });
+        if (password !== rPassword) {
+            return setAlert('Passwords do not match')
+        }
+
+        try {
+            setLoading(true)
+            await signup(email, password)
+            navigate('/')
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.dir(errorCode)
+            console.dir(errorMessage)
+
+            if (errorMessage == "Firebase: Error (auth/invalid-email).") setAlert("Invalid email format")
+            else setAlert(errorMessage)
+        }
+
+        setLoading(false)
     }
 
    
@@ -141,7 +149,9 @@ const SignUp = () => {
                 }
                 
 
-                <button onClick={register} className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Register</button>
+                <button onClick={register} disabled={loading} className="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                    {loading ? (<FontAwesomeIcon icon={faSpinner} spin />) : ('Register')}
+                </button>
             </div>
 
 

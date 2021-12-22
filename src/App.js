@@ -13,30 +13,33 @@ import Article01 from "./articles/Article01"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import BazaTesty from "./roboczy/BazaTesty"
+import { AuthProvider } from "./context/AuthContext"
 
 
 const App = () => {
     return (
-        <Routes>
-            <Route path='/' element={ <Home /> } />
-            <Route path='dashboard' element={ <Dashboard /> } />
-            <Route path='statistics' element={ <Statistics /> } />
-            <Route path='savings' element={ <Savings /> } />
-            <Route path='learnmore' element={ <LearnMore /> } />
-            <Route path='settings' element={ <Settings /> } />
-            <Route path='authors' element={ <Authors /> } />
-            <Route path='signin' element={ <SignIn /> } />
-            <Route path='signup' element={ <SignUp /> } />
+        <AuthProvider>
+            <Routes>
+                <Route path='/' element={ <Home /> } />
+                <Route path='dashboard' element={ <Dashboard /> } />
+                <Route path='statistics' element={ <Statistics /> } />
+                <Route path='savings' element={ <Savings /> } />
+                <Route path='learnmore' element={ <LearnMore /> } />
+                <Route path='settings' element={ <Settings /> } />
+                <Route path='authors' element={ <Authors /> } />
+                <Route path='signin' element={ <SignIn /> } />
+                <Route path='signup' element={ <SignUp /> } />
 
-            {/* Articles paths: */}
-            <Route path='learnmore/article01' element={ <Article01 /> } />
+                {/* Articles paths: */}
+                <Route path='learnmore/article01' element={ <Article01 /> } />
 
-            {/* Developer paths: */}
-            <Route path='baza' element={ <BazaTesty /> } />
-            <Route path='app' element={ <App2 /> } />
-            <Route path='inny' element={ <Inny /> } />
-            <Route path='fb' element={ <Fb /> } />
-        </Routes>
+                {/* Developer paths: */}
+                <Route path='baza' element={ <BazaTesty /> } />
+                <Route path='app' element={ <App2 /> } />
+                <Route path='inny' element={ <Inny /> } />
+                <Route path='fb' element={ <Fb /> } />
+            </Routes>
+        </AuthProvider>
     )
 }
 
