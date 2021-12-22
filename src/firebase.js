@@ -7,13 +7,13 @@ import { getDatabase } from "firebase/database"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDZAo9KBwRiEPIC038UZ8ly-UL4y9HguR0",
-  authDomain: "formal-vortex-225715.firebaseapp.com",
-  databaseURL: "https://formal-vortex-225715-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "formal-vortex-225715",
-  storageBucket: "formal-vortex-225715.appspot.com",
-  messagingSenderId: "348447624562",
-  appId: "1:348447624562:web:635853a0c54bf8d43e61eb"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 }
 
 // Initialize Firebase
