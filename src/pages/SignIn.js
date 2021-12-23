@@ -21,7 +21,7 @@ const SignIn = () => {
         try {
             setLoading(true)
             await signin(email, password)
-            navigate('/')
+            navigate('/user')
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -32,22 +32,6 @@ const SignIn = () => {
         }
 
         setLoading(false)
-
-
-
-        // signInWithEmailAndPassword(auth, email, password)
-        // .then((userCredential) => {
-        //     // Signed in 
-        //     const user = userCredential.user;
-        //     console.dir(user)
-        // })
-        // .catch((error) => {
-        //     const errorCode = error.code;
-        //     const errorMessage = error.message;
-        //     console.dir(errorCode)
-        //     console.dir(errorMessage)
-        //     setAlert(errorMessage)
-        // });
     }
 
     const validateEmail = () => {

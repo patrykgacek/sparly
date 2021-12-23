@@ -29,7 +29,7 @@ const SignUp = () => {
         try {
             setLoading(true)
             await signup(email, password)
-            navigate('/')
+            navigate('/user')
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
