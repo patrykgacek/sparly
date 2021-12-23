@@ -101,23 +101,27 @@ const User = () => {
                     </thead>
                     <tbody>
                     <tr className="border p-2">
-                        <td className="border p-2">Email</td>
+                        <td className="border p-2">email</td>
                         <td className="border p-2">{currentUser.email}</td>
                     </tr>
                     <tr className="border p-2">
-                        <td className="border p-2">Email verified</td>
+                        <td className="border p-2">emailVerified</td>
                         <td className="border p-2">{currentUser.emailVerified ? 'true' : 'false'}</td>
                     </tr>
                     <tr className="border p-2">
-                        <td className="border p-2">User UID</td>
+                        <td className="border p-2">displayName</td>
+                        <td className="border p-2">{currentUser.displayName ? currentUser.displayName : '-'}</td>
+                    </tr>
+                    <tr className="border p-2">
+                        <td className="border p-2">uid</td>
                         <td className="border p-2">{currentUser.uid}</td>
                     </tr>
                     <tr className="border p-2">
-                        <td className="border p-2">Created</td>
+                        <td className="border p-2">creationTime</td>
                         <td className="border p-2">{currentUser.metadata.creationTime}</td>
                     </tr>
                     <tr className="border p-2">
-                        <td className="border p-2">Last login</td>
+                        <td className="border p-2">lastSignInTime</td>
                         <td className="border p-2">{currentUser.metadata.lastSignInTime}</td>
                     </tr>
                     <tr>
@@ -138,6 +142,13 @@ const User = () => {
                         <td colSpan={2}>
                             <button onClick={handleForgotPassword} className="text-blue-600 underline underline-offset-auto">
                                 {loading ? (<FontAwesomeIcon icon={faSpinner} spin />) : ('Forgot Password')}
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2}>
+                            <button onClick={() => console.log(currentUser)} className="text-blue-600 underline underline-offset-auto">
+                                console log user
                             </button>
                         </td>
                     </tr>
@@ -180,11 +191,6 @@ const User = () => {
                 <ul>
                     <li>
                         Unknown user
-                    </li>
-                    <li>
-                    <Link to='/dashboard' className="text-blue-600 underline underline-offset-auto">
-                        Back to main app
-                    </Link> 
                     </li>
                     <li>
                         <Link to='/signin' className="text-blue-600 underline underline-offset-auto">

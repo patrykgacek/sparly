@@ -11,7 +11,7 @@ const Home = () => {
                 </header>
                 <div className="mx-5">
                     <p className="my-10 lg:my-14 text-lg lg:text-3xl">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    Let us manage your home finances better than you ever dreamed of
                     </p>
                     <Link to='dashboard' className="text-md lg:text-2xl transform hover:scale-105 text-white font-bold block p-3 lg:p-5 m-auto rounded-full bg-green-500 hover:bg-green-400 transition-all tracking-wider uppercase " >
                         Get started <FontAwesomeIcon icon={faAngleRight} />

@@ -90,7 +90,9 @@ const SignUp = () => {
                 <p className="text-right">
                     <Link to="/signin">Already have an account? <span className="text-blue-500">SignIn!</span></Link>
                     <br />
-                    <button type="button" onClick={handleDeveloperLogin} className="text-red-600">Developer signin</button>
+                    <button type="button" onClick={handleDeveloperLogin} className="text-red-600 py-2 my-1">Signin [Developer]</button>
+                    <br />
+                    <Link to="/user" className="text-red-600">Manage user [Developer]</Link>
                 </p>
             </form>
         </div>
