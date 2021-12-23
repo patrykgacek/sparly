@@ -16,6 +16,7 @@ import BazaTesty from "./roboczy/BazaTesty"
 import { AuthProvider } from "./context/AuthContext"
 import User from "./roboczy/User"
 import Props1 from "./roboczy/testPropsow/Props1"
+import Logout from "./pages/Logout"
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
                 <Route path='authors' element={ <Authors /> } />
                 <Route path='signin' element={ <SignIn /> } />
                 <Route path='signup' element={ <SignUp /> } />
+                <Route path='logout' element={ <Logout /> } />
 
                 {/* Articles paths: */}
                 <Route path='learnmore/article01' element={ <Article01 /> } />

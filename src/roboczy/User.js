@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext"
 const User = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const { currentUser, logout, signin, updEmail, updPassword, resetPassword, emailConfirm } = useAuth()
+    const { currentUser, logout, updEmail, updPassword, resetPassword, emailConfirm, developerLogin } = useAuth()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -57,7 +57,7 @@ const User = () => {
         
         setLoading(true)
         try {
-            await signin('usertest@sparly.com', 'sparly123')
+            await developerLogin()
             setError('')
         } catch (error) {
             setError(error.message)
@@ -165,6 +165,11 @@ const User = () => {
                         <td>Error:</td>
                         <td>{!! error ? error : 'no errors'}</td>
                     </tr>
+                    <tr colSpan={2}>
+                    <Link to='/dashboard' className="text-blue-600 underline underline-offset-auto">
+                        Back to main app
+                    </Link>
+                    </tr>
                     </tbody>                
                 </table>
                 <p className="break-all">{JSON.stringify(currentUser)}</p>
@@ -173,6 +178,11 @@ const User = () => {
                 <ul>
                     <li>
                         Unknown user
+                    </li>
+                    <li>
+                    <Link to='/dashboard' className="text-blue-600 underline underline-offset-auto">
+                        Back to main app
+                    </Link> 
                     </li>
                     <li>
                         <Link to='/signin' className="text-blue-600 underline underline-offset-auto">

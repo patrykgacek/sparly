@@ -19,6 +19,7 @@ export const AuthProvider = ({children}) => {
     const updEmail = email => updateEmail(currentUser, email)
     const updPassword = password => updatePassword(currentUser, password)
     const emailConfirm = () => sendEmailVerification(currentUser)
+    const developerLogin = () => signInWithEmailAndPassword(auth, '	developer@sparly.com', 'sparly123')
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
@@ -38,6 +39,7 @@ export const AuthProvider = ({children}) => {
         updEmail,
         updPassword,
         emailConfirm,
+        developerLogin,
     }
     
     return (
