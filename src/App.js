@@ -15,6 +15,7 @@ import SignUp from "./pages/SignUp"
 import BazaTesty from "./roboczy/BazaTesty"
 import { AuthProvider } from "./context/AuthContext"
 import User from "./roboczy/User"
+import Props1 from "./roboczy/testPropsow/Props1"
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
                 <Route path='inny' element={ <Inny /> } />
                 <Route path='fb' element={ <Fb /> } />
                 <Route path='user' element={ <User /> } />
+                <Route path='props' element={ <Props1 /> } />
             </Routes>
         </AuthProvider>
     )
