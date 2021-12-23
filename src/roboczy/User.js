@@ -166,9 +166,11 @@ const User = () => {
                         <td>{!! error ? error : 'no errors'}</td>
                     </tr>
                     <tr colSpan={2}>
-                    <Link to='/dashboard' className="text-blue-600 underline underline-offset-auto">
-                        Back to main app
-                    </Link>
+                        <td>
+                            <Link to='/dashboard' className="text-blue-600 underline underline-offset-auto">
+                                Back to main app
+                            </Link>
+                        </td>
                     </tr>
                     </tbody>                
                 </table>

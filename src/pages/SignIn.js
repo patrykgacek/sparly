@@ -34,9 +34,10 @@ const SignIn = () => {
         setLoading(false)
     }
 
-    const handleDeveloperLogin = () => {
+    const handleDeveloperLogin = async () => {
         try {
-            developerLogin()
+            setLoading(true)
+            await developerLogin()
             navigate('/dashboard')
         } catch (error) {
             console.log(error)

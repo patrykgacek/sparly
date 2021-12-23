@@ -14,7 +14,7 @@ const SignUp = () => {
     const [passwordConfirm, setPasswordConfirm] = useState('')
     const [alert, setAlert] = useState('')
     const [loading, setLoading] = useState(false)
-    const { signup } = useAuth()
+    const { signup, developerLogin } = useAuth()
     const navigate = useNavigate()
 
     const handleEmail = e => setEmail(e.target.value)
@@ -31,7 +31,7 @@ const SignUp = () => {
         try {
             setLoading(true)
             await signup(email, password)
-            navigate('/user')
+            navigate('/dashboard')
         } catch (error) {
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -50,6 +50,16 @@ const SignUp = () => {
         }
 
         setLoading(false)
+    }
+
+    const handleDeveloperLogin = async () => {
+        try {
+            setLoading(true)
+            await developerLogin()
+            navigate('/dashboard')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -79,6 +89,8 @@ const SignUp = () => {
                 </ButtonPrimary>
                 <p className="text-right">
                     <Link to="/signin">Already have an account? <span className="text-blue-500">SignIn!</span></Link>
+                    <br />
+                    <button type="button" onClick={handleDeveloperLogin} className="text-red-600">Developer signin</button>
                 </p>
             </form>
         </div>

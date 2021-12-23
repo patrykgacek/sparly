@@ -2,6 +2,7 @@ import { faChartPie, faCog, faCoins, faInfo, faPiggyBank, faRadiation, faSignOut
 import { Link } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
 import NavItem from "./NavItem";
+import NavLogout from "./NavLogout";
 
 const Navigation = ({balance, userName, currencySymbol, familyName}) => {
     return (
@@ -15,7 +16,7 @@ const Navigation = ({balance, userName, currencySymbol, familyName}) => {
                     <NavItem icon={faInfo} to='/learnmore'>Learn more</NavItem>
                     <hr className="my-2"></hr>
                     <NavItem icon={faCog} to='/settings'>Settings</NavItem>
-                    <NavItem icon={faSignOutAlt} to='/logout'>Logout</NavItem>
+                    <NavLogout icon={faSignOutAlt} >Logout</NavLogout>
                     <hr className="my-2"></hr>
                     <NavItem icon={faRadiation} to='/user'>DevUser</NavItem>
                     <p className="mt-5 text-center text-xs text-gray-400 invisible md:visible">

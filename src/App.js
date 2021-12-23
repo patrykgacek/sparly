@@ -16,26 +16,64 @@ import BazaTesty from "./roboczy/BazaTesty"
 import { AuthProvider } from "./context/AuthContext"
 import User from "./roboczy/User"
 import Props1 from "./roboczy/testPropsow/Props1"
-import Logout from "./pages/Logout"
+import PrivateRoute from "./components/PrivateRoute"
+import PublicRoute from "./components/PublicRoute"
 
 
 const App = () => {
     return (
         <AuthProvider>
             <Routes>
-                <Route path='/' element={ <Home /> } />
-                <Route path='dashboard' element={ <Dashboard /> } />
-                <Route path='statistics' element={ <Statistics /> } />
-                <Route path='savings' element={ <Savings /> } />
-                <Route path='learnmore' element={ <LearnMore /> } />
-                <Route path='settings' element={ <Settings /> } />
-                <Route path='authors' element={ <Authors /> } />
-                <Route path='signin' element={ <SignIn /> } />
-                <Route path='signup' element={ <SignUp /> } />
-                <Route path='logout' element={ <Logout /> } />
+                <Route path='/' element={
+                    <PublicRoute>
+                        <Home />
+                    </PublicRoute>
+                } />
+                <Route path='dashboard' element={
+                    <PrivateRoute>
+                        <Dashboard />
+                    </PrivateRoute>
+                } />
+                <Route path='statistics' element={
+                    <PrivateRoute>
+                        <Statistics />
+                    </PrivateRoute>
+                } />
+                <Route path='savings' element={
+                    <PrivateRoute>
+                        <Savings />
+                    </PrivateRoute>
+                } />
+                <Route path='learnmore' element={
+                    <PrivateRoute>
+                        <LearnMore />
+                    </PrivateRoute>
+                } />
+                <Route path='settings' element={
+                    <PrivateRoute>
+                        <Settings />
+                    </PrivateRoute>
+                } />
+                <Route path='authors' element={
+                    <Authors />
+                } />
+                <Route path='signin' element={
+                    <PublicRoute>
+                        <SignIn />
+                    </PublicRoute>
+                } />
+                <Route path='signup' element={
+                    <PublicRoute>
+                        <SignUp />
+                    </PublicRoute>
+                } />
 
                 {/* Articles paths: */}
-                <Route path='learnmore/article01' element={ <Article01 /> } />
+                <Route path='learnmore/article01' element={
+                    <PrivateRoute>
+                        <Article01 />
+                    </PrivateRoute>
+                } />
 
                 {/* Developer paths: */}
                 <Route path='baza' element={ <BazaTesty /> } />
