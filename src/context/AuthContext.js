@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from "firebase/auth"
 import { createContext, useContext, useEffect, useState } from "react"
 import { auth } from "../firebase"
 
@@ -12,17 +12,13 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
     
-    const signup = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password)
-    }
-
-    const signin = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
-    }
-
-    const logout = () => {
-        return signOut(auth)
-    }
+    const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password)
+    const signin = (email, password) => signInWithEmailAndPassword(auth, email, password)
+    const logout = () => signOut(auth)
+    const resetPassword = email => sendPasswordResetEmail(auth, email)
+    const updEmail = email => updateEmail(currentUser, email)
+    const updPassword = password => updatePassword(currentUser, password)
+    const emailConfirm = () => sendEmailVerification(currentUser)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
@@ -37,7 +33,11 @@ export const AuthProvider = ({children}) => {
         currentUser,
         signup,
         signin,
-        logout
+        logout,
+        resetPassword,
+        updEmail,
+        updPassword,
+        emailConfirm,
     }
     
     return (
