@@ -4,11 +4,11 @@ import HeaderBar from "./HeaderBar";
 import NavItem from "./NavItem";
 import NavLogout from "./NavLogout";
 
-const Navigation = ({balance, userName, currencySymbol, familyName}) => {
+const Navigation = () => {
     return (
         <div className="md:w-56 p-3">
             <div className="h-full md:overflow-auto">
-                    <HeaderBar balance={balance} userName={userName} currencySymbol={currencySymbol} familyName={familyName} />
+                    <HeaderBar />
                     <hr className="my-2"></hr>
                     <NavItem icon={faCoins} to='/dashboard'>Budget</NavItem>
                     <NavItem icon={faPiggyBank} to='/savings'>Savings</NavItem>
@@ -19,6 +19,7 @@ const Navigation = ({balance, userName, currencySymbol, familyName}) => {
                     <NavLogout icon={faSignOutAlt} >Logout</NavLogout>
                     <hr className="my-2"></hr>
                     <NavItem icon={faRadiation} to='/user'>DevUser</NavItem>
+                    <NavItem icon={faRadiation} to='/baza'>DevDatabase</NavItem>
                     <p className="mt-5 text-center text-xs text-gray-400 invisible md:visible">
                         <Link to="/authors">
                             <span dangerouslySetInnerHTML={{ "__html": "&copy; " }} />
