@@ -2,6 +2,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import Layout from "../components/Layout"
 import { useAuth } from "../context/AuthContext"
 
 const User = () => {
@@ -88,6 +89,7 @@ const User = () => {
     }
 
     return (
+        <Layout>
         <div className="flex justify-center items-center h-screen flex-wrap">
             
                 {currentUser ? (
@@ -211,6 +213,7 @@ const User = () => {
                 
             
         </div>
+        </Layout>
     )
 }
 

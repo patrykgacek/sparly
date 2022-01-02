@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { Link } from "react-router-dom";
 import { useDatabase } from "../context/DatabaseContext";
 import { EXPENSE, USER_INFO } from "../constans";
+import Layout from "../components/Layout";
 
 const BazaTesty2 = () => {
     const { expense, setLoadExpense, userInfo } = useDatabase()
@@ -13,6 +14,7 @@ const BazaTesty2 = () => {
     })
 
     return (
+        <Layout>
         <table className="min-w-full divide-y divide-gray-200 ">
             <thead className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <tr>
@@ -45,6 +47,7 @@ const BazaTesty2 = () => {
                 ) : <tr><td className="px-6 py-3" colSpan="7"><FontAwesomeIcon icon={faCircleNotch} spin /> Loading data...</td></tr>}
             </tbody>
         </table>
+        </Layout>
     )
 }
 

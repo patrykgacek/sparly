@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { useDatabase } from "../context/DatabaseContext";
 import { TEST_DATA } from "../constans"; // Różne nazwy zapisane w jednym pliku żeby uniknąć pomyłki
+import Layout from "../components/Layout";
 
 const BazaTesty = () => {
     const [stringValue, setStringValue] = useState('') // Input kontrolowany 
@@ -51,7 +52,7 @@ const BazaTesty = () => {
     }
 
     return (
-        <>
+        <Layout>
             <div className='border p-3 m-1'>
                 <Link to='/dashboard' className="text-blue-600">Dashboard</Link>
             </div>
@@ -98,7 +99,7 @@ const BazaTesty = () => {
                     ) : 'Brak danych' // Dane załadowane, ale nie ma nic do wyświetlenia
                 ) : <FontAwesomeIcon icon={faCircleNotch} spin /> /* Ładowanie Danych */}
             </div>
-        </>
+        </Layout>
     )
 }
 
