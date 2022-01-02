@@ -19,6 +19,7 @@ import Props1 from "./roboczy/testPropsow/Props1"
 import PrivateRoute from "./components/PrivateRoute"
 import PublicRoute from "./components/PublicRoute"
 import { DatabaseProvider } from "./context/DatabaseContext"
+import BazaTesty2 from "./roboczy/BazaTesty2"
 
 const App = () => {
     return (
@@ -78,6 +79,7 @@ const App = () => {
 
             {/* Developer paths: */}
             <Route path='baza' element={ <BazaTesty /> } />
+            <Route path='baza2' element={ <BazaTesty2 /> } />
             <Route path='app' element={ <App2 /> } />
             <Route path='inny' element={ <Inny /> } />
             <Route path='fb' element={ <Fb /> } />

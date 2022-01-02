@@ -20,6 +20,7 @@ const Navigation = () => {
                     <hr className="my-2"></hr>
                     <NavItem icon={faRadiation} to='/user'>DevUser</NavItem>
                     <NavItem icon={faRadiation} to='/baza'>DevDatabase</NavItem>
+                    <NavItem icon={faRadiation} to='/baza2'>DevDatabase2</NavItem>
                     <p className="mt-5 text-center text-xs text-gray-400 invisible md:visible">
                         <Link to="/authors">
                             <span dangerouslySetInnerHTML={{ "__html": "&copy; " }} />
