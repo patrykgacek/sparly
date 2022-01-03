@@ -11,7 +11,7 @@ export const PATH = {
     CATEGORIES: '/categories/',
     INCOME: '/income/',
     EXPENSE: '/expense/',
-    SAVINGS_GOAL: '/savingsGoal',
+    SAVINGS_GOAL: '/savingsGoal/',
     TEST: '/test/',
 }
 
