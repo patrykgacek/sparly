@@ -1,12 +1,17 @@
 import Layout from "../components/Layout";
 import Chart from "react-google-charts";
 import { useState } from "react";
+import { useDatabase } from "../context/DatabaseContext";
+import { useEffect } from "react"
+import { EXPENSE, INCOME } from "../constans";
 
 const Statistics = () => {
     const dataHeader = ['', 'Income', 'Expenses']
     const data1Header = ['Task', 'Hours per Day']
+    
     var currencySymbol = "PLN"
-    var expense = [
+    /*
+    var expensee = [
         ['aaa','10-12-2021', '20', 'AA', 'food'],
         ['aaa','11-12-2021', '100', 'AA', 'travels'],
         ['aaa','12-12-2021', '24', 'AA', 'healthcare'],
@@ -23,7 +28,9 @@ const Statistics = () => {
         ['aaa','14-12-2021', '30', 'AA', 'food'],
         ['aaa','15-12-2021', '250', 'AA', 'food'],
         ['aaa','16-12-2021', '0', 'AA', 'food'],
-    ]
+    ]*/
+    var expenseTemp = []
+    var incomeTemp = []
     var categories = []
     const [dateFrom, setFromDate] = useState(()=>{
         let d = new Date();
@@ -36,33 +43,42 @@ const Statistics = () => {
         return d.getMonth()<10 ? `${d.getFullYear()}-0${d.getMonth()+1}-${d.getDate()}`:
          `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
     });
+    const { expense,income, setLoadExpense, setLoadIncome } = useDatabase()
+    useEffect(() => {
+        setLoadExpense(true)
+    })
+    useEffect(() => {
+        setLoadIncome(true)
+    })
     function setChart(){
         let arr = []
         arr.push(dataHeader)
-        for(var i = 0;i<income.length;i++){
-            let t = [income[i][1], parseInt(income[i][2]), parseInt(expense[i][2])]
+        for(var i = 0;i<incomeTemp.length;i++){
+            let t = [incomeTemp[i][1], parseInt(incomeTemp[i][2]), parseInt(expenseTemp[i][2])]
+
             arr.push(t)
         }
         return arr
+     
     }
     function setChart1(){
         let arr = [];
         arr.push(data1Header)
-        for(var e = 0;e<expense.length;e++){
+        for(var e = 0;e<expenseTemp.length;e++){
             let present = false
             let index
             for(var a = 0;a<arr.length;a++){
-                if(arr[a][0]==expense[e][4]){
+                if(arr[a][0]==expenseTemp[e][4]){
                     present = true
                     index = a
                     break;
                 }
             }
             if(present){
-                arr[index][1] += parseInt(expense[e][2])
+                arr[index][1] += parseInt(expenseTemp[e][2])
             }
             else{
-                arr.push([expense[e][4], parseInt(expense[e][2])])
+                arr.push([expenseTemp[e][4], parseInt(expenseTemp[e][2])])
             }
         }
         return arr
@@ -78,6 +94,28 @@ const Statistics = () => {
  
     const drawCharts = () => {
         console.log(dateFrom, dateTo)
+        expenseTemp.length = 0;
+        incomeTemp.length = 0;
+        console.log(expense)
+        
+        Object.keys(expense).map(key => { 
+           // console.log(expense[key][EXPENSE.NAME])
+           // console.log(expense[key][EXPENSE.PRICE]) 
+            expenseTemp.push([expense[key][EXPENSE.NAME],
+                new Date(expense[key][EXPENSE.DATE]),
+                expense[key][EXPENSE.PRICE],
+                expense[key][EXPENSE.FAMILY_MEMBER],
+                expense[key][EXPENSE.CATEGORY]])
+        })
+        Object.keys(income).map(key => { 
+             incomeTemp.push([income[key][INCOME.NAME],
+                income[key][INCOME.DATE],
+                income[key][INCOME.PRICE],
+                income[key][INCOME.FAMILY_MEMBER],
+                income[key][INCOME.CATEGORY]])
+         })
+        var aa = expenseTemp.sort((a, b) => b[1] - a[1])
+         console.log(aa)
         setData(setChart())
         setData1(setChart1())
     }
@@ -100,7 +138,7 @@ const Statistics = () => {
                      onChange={handleDateTo}
                      value={dateTo}
                      />
-                    <button onClick={drawCharts} type="button" class="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Show</button>
+                    <button onClick={drawCharts} type="button" className="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Show</button>
                 </div>
             
                 <div style={{ display: 'flex', flexDirection:'row',flexWrap:'wrap', justifyContent:'space-evenly', backgroundColor:'white', flexGrow:'1'}}>
