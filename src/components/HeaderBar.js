@@ -15,12 +15,12 @@ const HeaderBar = () => {
                 ? userInfo.name
                 :  <span className="text-gray-500">...</span>}!
             </p>
-            <p>
+            <div>
                 Your balance
                 <p className="text-xl font-semibold">
                     {userInfo ? userInfo.balance : 0} {userInfo ? userInfo.currencySymbol : '$'}
                 </p>
-            </p>
+            </div>
         </div>
     )
 }

@@ -20,6 +20,7 @@ import PrivateRoute from "./components/PrivateRoute"
 import PublicRoute from "./components/PublicRoute"
 import { DatabaseProvider } from "./context/DatabaseContext"
 import BazaTesty2 from "./roboczy/BazaTesty2"
+import BazaDodawanie from "./roboczy/BazaDodawanie"
 
 const App = () => {
     return (
@@ -85,6 +86,14 @@ const App = () => {
             <Route path='fb' element={ <Fb /> } />
             <Route path='user' element={ <User /> } />
             <Route path='props' element={ <Props1 /> } />
+
+            <Route path='baza-add' element={
+                <PrivateRoute>
+                    <BazaDodawanie />
+                </PrivateRoute>
+            } />
+
+
         </Routes>
         </DatabaseProvider>
         </AuthProvider>

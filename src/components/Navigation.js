@@ -21,12 +21,13 @@ const Navigation = () => {
                     <NavItem icon={faRadiation} to='/user'>DevUser</NavItem>
                     <NavItem icon={faRadiation} to='/baza'>DevDatabase</NavItem>
                     <NavItem icon={faRadiation} to='/baza2'>DevDatabase2</NavItem>
-                    <p className="mt-5 text-center text-xs text-gray-400 invisible md:visible">
+                    <NavItem icon={faRadiation} to='/baza-add'>DevDatabaseAdd</NavItem>
+                    <div className="mt-5 text-center text-xs text-gray-400 invisible md:visible">
                         <Link to="/authors">
                             <span dangerouslySetInnerHTML={{ "__html": "&copy; " }} />
                             Sparly 2021
                         </Link>
-                    </p>
+                    </div>
             </div>
         </div>
     )

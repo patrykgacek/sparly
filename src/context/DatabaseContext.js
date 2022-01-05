@@ -1,6 +1,6 @@
 import { child, onValue, push, ref, update } from "firebase/database";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { PATH } from "../constans";
+import { CATEGORIES, FAMILY_MEMBERS, PATH, USER_INFO } from "../constans";
 import { database } from "../firebase";
 import { useAuth } from "./AuthContext";
 
@@ -82,9 +82,23 @@ export const DatabaseProvider = ({children}) => {
     const updateTestData = (key, newData) => updateDatabase(key, newData, PATH.TEST) // DEV [!]
     const addTestData = (newData) => addToDatabase(newData, PATH.TEST) // DEV [!]
 
+    // Register new user, setup default values
     const updateUserInfoWithUID = (newUserInfo, userUID) => {
         const updates = {}
         updates[userUID + PATH.USER_INFO] = newUserInfo;
+        
+        const newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        const defaultCategory = {
+            [CATEGORIES.NAME]: 'default'
+        }
+        updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
+
+        const newFamilyMemberKey = push(child(ref(database), userUID + PATH.FAMILY_MEMBERS)).key
+        const defaultFamilyMember = {
+            [FAMILY_MEMBERS.NAME]: newUserInfo[USER_INFO.NAME]
+        }
+        updates[userUID + PATH.FAMILY_MEMBERS + newFamilyMemberKey] = defaultFamilyMember;
+
         return update(ref(database), updates)
     }
 
