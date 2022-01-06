@@ -46,6 +46,7 @@ export const SAVINGS_GOAL = {
     CREATE_DATE: 'createDate',
     COMPLETION_DATE: 'completionDate',
     TIME_INTERVAL: 'timeInterval',
+    ACTUAL_AMOUNT: 'actualAmount',
     GOAL_AMOUNT: 'goalAmount',
     DESCRIPTION: 'description'
 }
