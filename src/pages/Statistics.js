@@ -3,35 +3,66 @@ import Chart from "react-google-charts";
 import { useState } from "react";
 import { useDatabase } from "../context/DatabaseContext";
 import { useEffect } from "react"
-import { EXPENSE, INCOME } from "../constans";
+import { EXPENSE, INCOME, USER_INFO, FAMILY_MEMBERS } from "../constans";
+
 
 const Statistics = () => {
-    const dataHeader = ['', 'Income', 'Expenses']
-    const data1Header = ['Task', 'Hours per Day']
-    
-    var currencySymbol = "PLN"
-    /*
-    var expensee = [
-        ['aaa','10-12-2021', '20', 'AA', 'food'],
-        ['aaa','11-12-2021', '100', 'AA', 'travels'],
-        ['aaa','12-12-2021', '24', 'AA', 'healthcare'],
-        ['aaa','13-12-2021', '5', 'AA', 'communication'],
-        ['aaa','14-12-2021', '220', 'AA', 'healthcare'],
-        ['aaa','15-12-2021', '201', 'AA', 'entertiment'],
-        ['aaa','16-12-2021', '20', 'AA', 'food'],
-    ]
-    var income = [
-        ['aaa','10-12-2021', '100', 'AA', 'food'],
-        ['aaa','11-12-2021', '30', 'AA', 'food'],
-        ['aaa','12-12-2021', '0', 'AA', 'food'],
-        ['aaa','13-12-2021', '5', 'AA', 'food'],
-        ['aaa','14-12-2021', '30', 'AA', 'food'],
-        ['aaa','15-12-2021', '250', 'AA', 'food'],
-        ['aaa','16-12-2021', '0', 'AA', 'food'],
-    ]*/
     var expenseTemp = []
     var incomeTemp = []
-    var categories = []
+
+    const dataHeader = ['', 'Income', 'Expenses']
+    const data1Header = ['Task', 'Hours per Day']
+   
+    const [data, setData] = useState(setChart());
+    const [data1, setData1] = useState(setChart1());
+    const [data2, setData2] = useState(setChart2());
+
+    const handleDateFrom = e => {
+        setFromDate(e.target.value)
+    }
+    const handleDateTo = e => {
+        setToDate(e.target.value)
+    }
+    const [dateFrom, setFromDate] = useState(()=>{
+        let d = new Date();
+        d.setDate(d.getDate() - 30);
+        return formatDate(d)
+    });
+    const [dateTo, setToDate] = useState(()=>{
+        let d = new Date();
+        return formatDate(d)
+    });
+
+    const { expense,income, userInfo, familyMembers, setLoadExpense, setLoadIncome } = useDatabase()
+    const currencySymbol = userInfo[USER_INFO.CURRENCY_SYMBOL]
+    useEffect(() => {
+        setLoadExpense(true)
+    })
+    useEffect(() => {
+        setLoadIncome(true)
+    })
+    
+    const [currentMemberSelection, setCurrentMember] = useState(()=>{
+        return "All Members"
+    })
+    const handleMember = e => {
+        console.log(e.target.innerHTML)
+        var lis =  document.querySelectorAll('.dropdwon-btn li')
+        Array.prototype.forEach.call(lis, function(li){
+            li.classList.remove('select')
+        })
+        e.target.classList.add('select')
+        document.querySelector('.dropdwon-btn ul').style.display = 'none'
+        setCurrentMember(e.target.innerHTML)
+    }
+  
+    const [intervalSelection, setInterval] = useState(()=>{
+        return "days"
+    })
+    const handleInterval = e =>{
+        console.log(e.target.value)
+        setInterval(e.target.value)
+    }
     function formatDate(d){
         let year = d.getFullYear();
         let month = d.getMonth()+1
@@ -44,22 +75,7 @@ const Statistics = () => {
         }
         return `${year}-${month}-${day}`
     }
-    const [dateFrom, setFromDate] = useState(()=>{
-        let d = new Date();
-        d.setDate(d.getDate() - 30);
-        return formatDate(d)
-    });
-    const [dateTo, setToDate] = useState(()=>{
-        let d = new Date();
-        return formatDate(d)
-    });
-    const { expense,income, setLoadExpense, setLoadIncome } = useDatabase()
-    useEffect(() => {
-        setLoadExpense(true)
-    })
-    useEffect(() => {
-        setLoadIncome(true)
-    })
+   
     function setChart(){
         let arr = []
         arr.push(dataHeader)
@@ -93,14 +109,29 @@ const Statistics = () => {
         }
         return arr
     }
-    const [data, setData] = useState(setChart());
-    const [data1, setData1] = useState(setChart1());
-    const handleDateFrom = e => {
-        setFromDate(e.target.value)
+    function setChart2(){
+        let arr = [];
+        arr.push(data1Header)
+        for(var e = 0;e<incomeTemp.length;e++){
+            let present = false
+            let index
+            for(var a = 0;a<arr.length;a++){
+                if(arr[a][0]==incomeTemp[e][4]){
+                    present = true
+                    index = a
+                    break;
+                }
+            }
+            if(present){
+                arr[index][1] += parseInt(incomeTemp[e][2])
+            }
+            else{
+                arr.push([incomeTemp[e][4], parseInt(incomeTemp[e][2])])
+            }
+        }
+        return arr
     }
-    const handleDateTo = e => {
-        setToDate(e.target.value)
-    }
+  
     function isValidDate(d) {
         var timestamp = Date.parse(d);
         console.log(timestamp)
@@ -256,11 +287,23 @@ const Statistics = () => {
             }
        }
    }
+    
+    useEffect(()=>{
+        document.getElementById('btn-days').focus()
+        drawCharts()
+    },[expense, income])
     const drawCharts = () => {
+
         console.log(dateFrom, dateTo)
+        
         expenseTemp.length = 0;
         incomeTemp.length = 0;
-
+        console.log(userInfo[USER_INFO.CURRENCY_SYMBOL])
+        Object.keys(familyMembers).map(key => { 
+            console.log(familyMembers[key][FAMILY_MEMBERS.NAME])
+        })
+       
+        console.log(userInfo[USER_INFO.NAME])
         Object.keys(expense).map(key => { 
            // console.log(expense[key][EXPENSE.NAME])
            // console.log(expense[key][EXPENSE.PRICE]) 
@@ -293,31 +336,66 @@ const Statistics = () => {
         console.log(expenseTemp, incomeTemp)
         setData(setChart())
         setData1(setChart1())
+        setData2(setChart2())
     }
   
+    const dropList = (e) => {
+        var ul = e.target.nextElementSibling
+        if(ul.style.display!="flex"){
+            ul.style.display = "flex"
+        }
+        else{
+            ul.style.display = "none"
+        }
+    }
+   
     return (
+        
         <Layout>
-            <div style={{display: 'flex',flexDirection:'column',  rowGap:'10px', flexDirection:'column'}}>
-                <div  className={`border-solid border-2 border-black-600 `} style={{display:'flex', flexDirection:'row', columnGap:'10px', alignItems:'center', justifyContent:'center', maxHeight:'55px'}}>
+            <div style={{display: 'flex',flexDirection:'column',  rowGap:'10px', }}>
+                <div  className={`border-solid rounded-lg shadow-lg  `} style={{display:'flex', flexDirection:'row', columnGap:'10px', alignItems:'center', justifyContent:'center', height:'55px'}}>
                     <span >From</span>
                     <input 
                      type="date"
-                     style={{border:'2px solid rgb(37, 99, 235)'}}
+                     style={{border:'2px solid rgb(37, 99, 235)', borderRadius:'4px'}}
                      onChange={handleDateFrom}
                      value={dateFrom}
                      />
                     <span >To</span>
                     <input
                      type="date" 
-                     style={{border:'2px solid rgb(37, 99, 235)'}}
+                     style={{border:'2px solid rgb(37, 99, 235)', borderRadius:'4px'}}
                      onChange={handleDateTo}
                      value={dateTo}
                      />
-                    <button onClick={drawCharts} type="button" className="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Show</button>
+                    <div className="dropdwon-btn" style={{width:'150px'}}>
+                        <label onClick={dropList}>{currentMemberSelection}</label>
+                        <ul style={{width:'150px'}} >
+                            <li className="select" onClick={handleMember}>All Members</li>
+                            {!!familyMembers ? (
+                            Object.keys(familyMembers).length ? (
+                                Object.keys(familyMembers).map(key => { 
+                                    return (
+                                        <li onClick={handleMember}>{familyMembers[key][FAMILY_MEMBERS.NAME]}</li>
+                                    )
+                                })
+                            ) : <li>No Members</li>
+                        ) : <li>No Members</li>}    
+                        </ul>
+                    </div>
+                    <button id="sumbit-charts" onClick={drawCharts} type="button" className="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Show</button>
                 </div>
-            
-                <div style={{ display: 'flex', flexDirection:'row',flexWrap:'wrap', justifyContent:'space-evenly', backgroundColor:'white', flexGrow:'1'}}>
-                    <div  className={`border-solid border-2 border-black-600 `}>
+               
+                <div style={{ display: 'flex', flexDirection:'column',flexWrap:'wrap', justifyContent:'space-evenly',rowGap:'20px', backgroundColor:'white'}}>
+                    <div  className={`border-solid rounded-lg shadow-lg py-5 text-center text-3xl rounded-md`} >
+                       <div style={{display:'flex', flexDirection:'row', justifyContent:'center'}}>
+                     
+                            <button type="button" id="btn-days" value="days" onClick={handleInterval} class="rounded-l inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Days</button>
+                            <button type="button" value="weeks"  onClick={handleInterval} class="inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Weeks</button>
+                            <button type="button" value="months" onClick={handleInterval}  class="inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Months</button>
+                            <button type="button" value="years"  onClick={handleInterval} class="rounded-r inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Years</button>
+                        </div>
+                       
                         <Chart
                           width={'100%'}
                           height={'400px'}
@@ -325,7 +403,7 @@ const Statistics = () => {
                         loader={<div>Loading Chart</div>}
                         data = {data}
                         options={{
-                            title: 'User income/expanse',
+                            title: `${currentMemberSelection} income/expanse`,
                             chartArea: { width: '70%' },
                             hAxis: {
                             title: '',
@@ -337,8 +415,10 @@ const Statistics = () => {
                         }}
                         legendToggle
                         />
+                        
                     </div>
-                    <div  className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}>
+                    <div style={{ display: 'flex', flexDirection:'row',flexWrap:'wrap', justifyContent:'center', columnGap:'15px'}}>
+                    <div  className={`border-solid rounded-lg shadow-lg py-5 text-center text-3xl rounded-md`} style={{flexGrow:'1'}} >
                         <Chart
                            width={'100%'}
                            height={'500px'}
@@ -346,7 +426,7 @@ const Statistics = () => {
                         loader={<div>Loading Chart</div>}
                         data = {data1}
                         options={{
-                            title: 'Expenses',
+                            title: `${currentMemberSelection} % expenses categories`,
                             pieHole: 0.4,
                             chartArea: { width: '70%' },
                             hAxis: {
@@ -359,6 +439,30 @@ const Statistics = () => {
                         }}
                         legendToggle
                         />
+                    </div>
+                    <div  className={`border-solid  rounded-lg shadow-lg py-5 text-center text-3xl rounded-md`} style={{flexGrow:'1'}}>
+                        <Chart
+                           width={'100%'}
+                           height={'500px'}
+                        chartType="PieChart"
+                        loader={<div>Loading Chart</div>}
+                        data = {data2}
+                        options={{
+                            title: `${currentMemberSelection} % income sources`,
+                            pieHole: 0.4,
+                            chartArea: { width: '70%' },
+                            hAxis: {
+              
+                            minValue: 0,
+                            },
+                            vAxis: {
+
+                            },
+                        }}
+                        legendToggle
+                        />
+                        
+                    </div>
                     </div>
                 </div>
             </div>
