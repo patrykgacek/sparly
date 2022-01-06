@@ -293,7 +293,7 @@ const Statistics = () => {
         drawCharts()
     },[expense, income])
     const drawCharts = () => {
-
+        console.log("a")
         console.log(dateFrom, dateTo)
         
         expenseTemp.length = 0;
