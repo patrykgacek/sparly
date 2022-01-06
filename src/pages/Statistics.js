@@ -61,6 +61,21 @@ const Statistics = () => {
     })
     const handleInterval = e =>{
         console.log(e.target.value)
+        var interval = e.target.value
+        //draw new chart
+        switch(interval){
+            case "days":
+                setData(setChartByDateEquality(10))
+                break;
+            case "months":
+                setData(setChartByDateEquality(7))
+                break;
+            case "years":
+                setData(setChartByDateEquality(4))
+                break;
+            default:
+                console.log("error time interval unknown")
+        }
         setInterval(e.target.value)
     }
     function formatDate(d){
@@ -77,16 +92,99 @@ const Statistics = () => {
     }
    
     function setChart(){
+        console.log(incomeTemp, expenseTemp)
         let arr = []
-        arr.push(dataHeader)
-        for(var i = 0;i<incomeTemp.length;i++){
-            let t = [incomeTemp[i][1], parseInt(incomeTemp[i][2]), parseInt(expenseTemp[i][2])]
+        let inc = []
+        let exp = []
+        let previnterval = "" 
+        let sum = 0;
 
+        for(let i = 0;i<incomeTemp.length;i++){
+            let currentinterval = incomeTemp[i][1]
+            if(previnterval == ""){
+                previnterval = currentinterval
+            }
+            else if(currentinterval!=previnterval){
+                inc.push([previnterval,  sum])
+                sum = 0
+                previnterval = currentinterval
+            }
+            sum += parseInt(incomeTemp[i][2])
+        }
+        inc.push([previnterval,  sum])
+        sum = 0
+        previnterval = ""
+        for(let i = 0;i<expenseTemp.length;i++){
+            let currentinterval = expenseTemp[i][1]
+            if(previnterval == ""){
+                previnterval = currentinterval
+            }
+            else if(currentinterval!=previnterval){
+                exp.push([previnterval,  sum])
+                sum = 0
+                previnterval = currentinterval
+            }
+            sum += parseInt(expenseTemp[i][2])
+        }
+        exp.push([previnterval,  sum])
+        arr.push(dataHeader)
+        for(var i = 0;i<inc.length;i++){
+            let t = [inc[i][0], parseInt(inc[i][1]), parseInt(exp[i][1])]
             arr.push(t)
         }
         return arr
      
     }
+
+    //require sorted and normalized data
+    function setChartByDateEquality(border){
+        expenseTemp.length = 0;
+        incomeTemp.length = 0;
+        getData()
+
+        let arr = []
+        let inc = []
+        let exp = []
+        let previnterval = "" 
+        let sum = 0;
+
+        for(let i = 0;i<incomeTemp.length;i++){
+            let currentinterval = incomeTemp[i][1].substring(0,border)
+            if(previnterval == ""){
+                previnterval = currentinterval
+            }
+            else if(currentinterval!=previnterval){
+                inc.push([previnterval,  sum])
+                sum = 0
+                previnterval = currentinterval
+            }
+            sum += parseInt(incomeTemp[i][2])
+        }
+        inc.push([previnterval,  sum])
+        sum = 0
+        previnterval = ""
+        for(let i = 0;i<expenseTemp.length;i++){
+            let currentinterval = expenseTemp[i][1].substring(0,border)
+            if(previnterval == ""){
+                previnterval = currentinterval
+            }
+            else if(currentinterval!=previnterval){
+                exp.push([previnterval,  sum])
+                sum = 0
+                previnterval = currentinterval
+            }
+            sum += parseInt(expenseTemp[i][2])
+        }
+        exp.push([previnterval,  sum])
+        arr.push(dataHeader)
+        for(var i = 0;i<inc.length;i++){
+            let t = [inc[i][0], parseInt(inc[i][1]), parseInt(exp[i][1])]
+            arr.push(t)
+        }
+        return arr
+     
+    }
+    
     function setChart1(){
         let arr = [];
         arr.push(data1Header)
@@ -132,15 +230,6 @@ const Statistics = () => {
         return arr
     }
   
-    function isValidDate(d) {
-        var timestamp = Date.parse(d);
-        console.log(timestamp)
-        if (isNaN(timestamp) == false) {
-            
-            return true
-        }
-        return false;
-    }
     /**
      * Compeare two dates
      * @param {*} data1 format required dd.mm.yyyy
@@ -167,9 +256,13 @@ const Statistics = () => {
         }
         return false
     }
+    /**
+     * check if data1 is newer or equal
+     * @param {*} data1 
+     * @param {*} data2 
+     * @returns true if it is
+     */
     function dateNewerOrEqualThan(data1, data2){
-        //var d1 = data1.split(/.-/).map(Number);
-        //var d2 = data2.split(/.-/).map(Number);
         var d1 = data1.split('-').map(Number);
         var d2 = data2.split('-').map(Number);
         if(d1[0]>d2[0]){
@@ -187,7 +280,12 @@ const Statistics = () => {
         }
         return false
     }
-   
+    
+    /**
+     * select required date range
+     * @param {*} data 
+     * @returns required date range
+     */
     function getDateRange(data){
         var dataNew = []
         for(var i =0;i<data.length;i++){
@@ -197,6 +295,20 @@ const Statistics = () => {
         }
     
         return dataNew
+    }
+    /**
+     * select data by member
+     * @param {*} data 
+     * @returns new array where is selected member
+     */
+    function selectByMember(data){
+        var dateNew = []
+        for(var i = 0;i<data.length;i++){
+            if(data[i][3]==currentMemberSelection){
+                dateNew.push(data[i])
+            }
+        }
+        return dateNew
     }
     /**
      * Sort by older date
@@ -234,23 +346,42 @@ const Statistics = () => {
         }
         return group
     }
-    function getMonth(data, monthNumber){
+    /**
+     * Remove?
+     * @param {*} data 
+     * @param {*} monthNumber 
+     * @returns 
+     */
+    function getMonth(data, monthNumber, yearNumber){
         var dataNew = []
         for(var i =0;i<data.length;i++){
-            if(parseInt(data[i][1].split('.')[1])==monthNumber){
+            let temp = data[i][1].split('-')
+            if(temp[1]==monthNumber&&temp[0]==yearNumber){
                 dataNew.push(data[i])
             }
         }
         return dataNew
     }
-   function devConvertDate(date){
+    /**
+     * Remove in release
+     * @param {*} date 
+     * @returns 
+     */
+    function devConvertDate(date){
+        let test = date.split('-')
+        if(test.length==3){
+            return date
+        }
        let t = date.split('.')
        return `${t[2]}-${t[1]}-${t[0]}`
    }
-   function normalizeData(){
-    sortByDate(expenseTemp)
-    sortByDate(incomeTemp)
-       if(incomeTemp.length!=expenseTemp.length){
+   /**
+    * fill empty data to make income and expense length equal
+    */
+    function normalizeData(){
+        sortByDate(expenseTemp)
+        sortByDate(incomeTemp)
+        if(incomeTemp.length!=expenseTemp.length){
             if(incomeTemp.length<expenseTemp.length){
                 let incomeNew = []
                 for(var i=0;i<expenseTemp.length;i++){
@@ -281,64 +412,61 @@ const Statistics = () => {
                     else{
                         expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
                     }
-                    console.log(expenseTemp[i], incomeTemp[i])
+                   // console.log(expenseTemp[i], incomeTemp[i])
                 }
                 expenseTemp = expenseNew
             }
-       }
-   }
-    
+        }
+    }
+    /**
+     * Run once on program start
+     */
     useEffect(()=>{
         document.getElementById('btn-days').focus()
         drawCharts()
     },[expense, income])
-    const drawCharts = () => {
-        console.log("a")
-        console.log(dateFrom, dateTo)
-        
-        expenseTemp.length = 0;
-        incomeTemp.length = 0;
-        console.log(userInfo[USER_INFO.CURRENCY_SYMBOL])
-        Object.keys(familyMembers).map(key => { 
-            console.log(familyMembers[key][FAMILY_MEMBERS.NAME])
-        })
-       
-        console.log(userInfo[USER_INFO.NAME])
+
+    function getData(){
         Object.keys(expense).map(key => { 
-           // console.log(expense[key][EXPENSE.NAME])
-           // console.log(expense[key][EXPENSE.PRICE]) 
             expenseTemp.push([expense[key][EXPENSE.NAME],
-                devConvertDate(expense[key][EXPENSE.DATE]),
+                devConvertDate(expense[key][EXPENSE.DATE]),//remove devConvertDate in release
                 expense[key][EXPENSE.PRICE],
                 expense[key][EXPENSE.FAMILY_MEMBER],
                 expense[key][EXPENSE.CATEGORY]])
         })
         Object.keys(income).map(key => { 
              incomeTemp.push([income[key][INCOME.NAME],
-                devConvertDate(income[key][INCOME.DATE]),
+                devConvertDate(income[key][INCOME.DATE]),//remove devConvertDate in release
                 income[key][INCOME.PRICE],
                 income[key][INCOME.FAMILY_MEMBER],
                 income[key][INCOME.CATEGORY]])
          })
-        expenseTemp =  getDateRange(expenseTemp);
+        expenseTemp =  getDateRange(expenseTemp)
         incomeTemp =  getDateRange(incomeTemp)
-
+        if(currentMemberSelection!="All Members"){
+            expenseTemp = selectByMember(expenseTemp)
+            incomeTemp = selectByMember(incomeTemp)
+        }
         normalizeData()
-       // var g = groupByMonthAverage(expenseTemp)
-       //  console.log(g)
-        //expenseTemp =  getMonth(expenseTemp, 1);
-        //incomeTemp =  getMonth(incomeTemp, 1)
-        
-       
-       // incomeTemp.pop()
-       // incomeTemp.pop()
-       // incomeTemp.pop()
-        console.log(expenseTemp, incomeTemp)
+    }
+    /**
+     * prepare data for charts and call function to display
+     */
+    const drawCharts = () => {
+        //clear temp data
+        expenseTemp.length = 0;
+        incomeTemp.length = 0;
+        getData()
+
         setData(setChart())
         setData1(setChart1())
         setData2(setChart2())
+
     }
-  
+    /**
+     * Display or hide drop list
+     * @param {*} e DOM element
+     */
     const dropList = (e) => {
         var ul = e.target.nextElementSibling
         if(ul.style.display!="flex"){
@@ -348,12 +476,10 @@ const Statistics = () => {
             ul.style.display = "none"
         }
     }
-   
     return (
-        
         <Layout>
             <div style={{display: 'flex',flexDirection:'column',  rowGap:'10px', }}>
-                <div  className={`border-solid rounded-lg shadow-lg  `} style={{display:'flex', flexDirection:'row', columnGap:'10px', alignItems:'center', justifyContent:'center', height:'55px'}}>
+                <div  className={`border-solid rounded-lg shadow-lg  `} style={{display:'flex', flexDirection:'row', columnGap:'10px', alignItems:'center', justifyContent:'center', paddingTop:'10px', paddingBottom:'10px',rowGap:'5px',  maxHeight:'100px', flexWrap:'wrap'}}>
                     <span >From</span>
                     <input 
                      type="date"
@@ -391,7 +517,6 @@ const Statistics = () => {
                        <div style={{display:'flex', flexDirection:'row', justifyContent:'center'}}>
                      
                             <button type="button" id="btn-days" value="days" onClick={handleInterval} class="rounded-l inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Days</button>
-                            <button type="button" value="weeks"  onClick={handleInterval} class="inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Weeks</button>
                             <button type="button" value="months" onClick={handleInterval}  class="inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Months</button>
                             <button type="button" value="years"  onClick={handleInterval} class="rounded-r inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Years</button>
                         </div>
