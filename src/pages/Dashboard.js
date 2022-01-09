@@ -204,6 +204,7 @@ const Dashboard = () => {
          if(currentValue=="+"){
             setPriceIncome(e.target.value)
          }
+         e.preventDefault()
     }
     const handleCorretion = () =>{
         if(currentValue == "-"){
