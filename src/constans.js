@@ -51,6 +51,7 @@ export const SAVINGS_GOAL = {
     DESCRIPTION: 'description'
 }
 
+
 export const TEST_DATA = {
     POLE1: 'stringValueInDatabase',
     POLE2: 'numberValueInDatabase'
