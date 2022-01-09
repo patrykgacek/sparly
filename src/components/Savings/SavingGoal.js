@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { SAVINGS_GOAL, USER_INFO } from "../../constans"
+import { EXPENSE, INCOME, SAVINGS_GOAL, USER_INFO } from "../../constans"
 import { useDatabase } from "../../context/DatabaseContext"
+import { todayDate } from "../../utils"
 
 
 const SavingGoal = props => {
@@ -28,7 +29,7 @@ const SavingGoal = props => {
     const handledeposit = e => setdeposit(e.target.value)
     const handlewithdraw = e => setwithdraw(e.target.value)
     
-    const {updateSavingsGoal,userInfo,updateUserInfo} = useDatabase() // Baza danych
+    const {updateSavingsGoal,userInfo,updateUserInfo,addExpense, addIncome} = useDatabase() // Baza danych
     
 
 
@@ -84,6 +85,14 @@ const SavingGoal = props => {
         e.preventDefault();
         const newActualAmount = parseFloat(props.actualA) + parseFloat(deposit);
         const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) - parseFloat(deposit);
+        const newExpense = {
+            [EXPENSE.NAME]: 'Deposit to saving goal '+props.title,
+            [EXPENSE.DATE]: todayDate(),
+            [EXPENSE.PRICE]: deposit,
+            [EXPENSE.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
+            [EXPENSE.CATEGORY]: 'Savings Goal',
+        }
+        addExpense(newExpense);
         updateSavingsGoal(props.id+"/"+[SAVINGS_GOAL.ACTUAL_AMOUNT],newActualAmount);
         updateUserInfo([USER_INFO.BALANCE],newBalance);
         setisPayToGoalForm(true);
@@ -94,6 +103,14 @@ const SavingGoal = props => {
         e.preventDefault();
         const newActualAmount = parseFloat(props.actualA) - parseFloat(withdraw);
         const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) + parseFloat(withdraw);
+        const newIncome = {
+            [INCOME.NAME]: 'Withdraw from saving goal '+props.title,
+            [INCOME.DATE]: todayDate(),
+            [INCOME.PRICE]: withdraw,
+            [INCOME.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
+            [INCOME.CATEGORY]: 'Savings Goal',
+        }
+        addIncome(newIncome);
         updateSavingsGoal(props.id+"/"+[SAVINGS_GOAL.ACTUAL_AMOUNT],newActualAmount);
         updateUserInfo([USER_INFO.BALANCE],newBalance);
         setisPayFromGoalForm(true);
