@@ -11,7 +11,7 @@ const Settings = () => {
     const [email, setEmail] = useState('')
     const [oldEmail, setOldEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [oldpassword, setOldPassword] = useState('')
+    const [confirmpassword, setConfirmPassword] = useState('')
     const [isPassConfirm, setPassConfirm] = useState(true);
     const {currentUser,updEmail, updPassword} = useAuth();
     const [error, setError] = useState('')
@@ -23,7 +23,7 @@ const Settings = () => {
     const handleEmail = e => setEmail(e.target.value)
     const handleOldEmail =e => setOldEmail(e.target.value)
     const handlePassword = e => setPassword(e.target.value)
-    const handleOldPassword = e => setOldPassword(e.target.value)
+    const handleConfirmPassword = e => setConfirmPassword(e.target.value)
     const handleUpdateEmail = async e => {
         if(email!=="" && oldEmail===currentUser.email)
         {
@@ -41,7 +41,7 @@ const Settings = () => {
         }
     }
     const handleUpdatePassword = async e => {
-        if(password!=="" && oldpassword===password)
+        if(password!=="" && confirmpassword===password)
         {
             e.preventDefault()
 
@@ -103,10 +103,10 @@ const Settings = () => {
                 Change Password
                 <div class="flex justify-center mt-5">
                     <div className="w-100 mx-auto mt-2">
-                        <label for="OldPasswordText" className="form-label text-xl inline-block mb-1 text-gray-700">Old password</label>
+                        <label for="OldPasswordText" className="form-label text-xl inline-block mb-1 text-gray-700">New passowrd</label>
                         <input
-                                        onChange={handleOldPassword}
-                                        type="text"
+                                        onChange={handlePassword}
+                                        type="password"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="OldPasswordText"
                                         
@@ -114,10 +114,10 @@ const Settings = () => {
 
                     </div>
                     <div className="w-100 mx-auto mt-2">
-                    <label for="NewPasswordText" className="form-label text-xl inline-block mb-1 text-gray-700">New password</label>
+                    <label for="NewPasswordText" className="form-label text-xl inline-block mb-1 text-gray-700">Confirm</label>
                         <input
-                                        onChange={handlePassword}
-                                        type="text"
+                                        onChange={handleConfirmPassword}
+                                        type="password"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="NewPasswordText"
                          />
