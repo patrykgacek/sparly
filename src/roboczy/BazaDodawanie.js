@@ -1,9 +1,8 @@
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
 import Layout from "../components/Layout"
+import { useState } from "react"
 import { CATEGORIES, EXPENSE, FAMILY_MEMBERS, INCOME, USER_INFO } from "../constans"
 import { useDatabase } from "../context/DatabaseContext"
+import { todayDate } from "../utils"
 
 const BazaDodawanie = () => {
     const { addExpense, addIncome, addFamilyMembers, addCategories, categories, familyMembers, userInfo, updateUserInfo } = useDatabase()
@@ -14,7 +13,7 @@ const BazaDodawanie = () => {
     const [infoCategory, setInfoCategory] = useState('')
 
     const [nameExpense, setNameExpense] = useState('')
-    const [dateExpense, setDateExpense] = useState('')
+    const [dateExpense, setDateExpense] = useState(todayDate())
     const [priceExpense, setPriceExpense] = useState('')
     const [familyMemberExpense, setFamilyMemberExpense] = useState(userInfo[USER_INFO.NAME])
     const [categoryExpense, setCategoryExpense] = useState('default')
@@ -27,7 +26,7 @@ const BazaDodawanie = () => {
     const handleDescriptionExpense = e => setDescriptionExpense(e.target.value)
 
     const [nameIncome, setNameIncome] = useState('')
-    const [dateIncome, setDateIncome] = useState('')
+    const [dateIncome, setDateIncome] = useState(todayDate())
     const [priceIncome, setPriceIncome] = useState('')
     const [familyMemberIncome, setFamilyMemberIncome] = useState(userInfo[USER_INFO.NAME])
     const [categoryIncome, setCategoryIncome] = useState('default')
