@@ -1,42 +1,61 @@
 import Layout from "../components/Layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react";
 import { useState } from "react";
+import { useDatabase } from "../context/DatabaseContext";
+import { useAuth } from "../context/AuthContext"
+import {USER_INFO } from "../constans";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 const Settings = () => {
     const [isEmailConfirm, setEmailConfirm] = useState(true);
-    const [isEmailValue,setEmailValue]=useState('');
+    const [email, setEmail] = useState('')
+    const [oldEmail, setOldEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [oldpassword, setOldPassword] = useState('')
     const [isPassConfirm, setPassConfirm] = useState(true);
-    const [isPassValue,setPassValue]=useState('');
+    const {currentUser,updEmail, updPassword} = useAuth();
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     var familyName ="Kowalscy";
     var familyMembers =["Bożena","Janusz"];
     var UserName ="Studenci";
     var UserUID ="";
-    const changeEmail = () => {
-        if(document.getElementById("NewEmailText").value!=="")
+    const handleEmail = e => setEmail(e.target.value)
+    const handleOldEmail =e => setOldEmail(e.target.value)
+    const handlePassword = e => setPassword(e.target.value)
+    const handleOldPassword = e => setOldPassword(e.target.value)
+    const handleUpdateEmail = async e => {
+        if(email!=="" && oldEmail===currentUser.email)
         {
-            setEmailConfirm(false);
-            setEmailValue(document.getElementById("NewEmailText").value);
+            e.preventDefault()
+            setLoading(true)
+            try {
+                await updEmail(email)
+                setError('')
+                setEmail('')
+            } catch (error) {
+                setError(error.message)
+            }
+            setLoading(false)
 
         }
-        else
-        {
-            setEmailConfirm(true);
-
-        }
-
     }
-    const changePassword = () => {
-        if(document.getElementById("NewPasswordText").value!=="")
+    const handleUpdatePassword = async e => {
+        if(password!=="" && oldpassword===password)
         {
-            setPassConfirm(false);
-            setPassValue(document.getElementById("NewPasswordText").value);
+            e.preventDefault()
+
+        setLoading(true)
+        try {
+            await updPassword(password)
+            setError('')
+            setPassword('')
+        } catch (error) {
+            setError(error.message)
+        }
+        setLoading(false)
 
         }
-        else
-        {
-            setPassConfirm(true);
-
-        }
-
     }
     const addFamilyMember = () => {}
     const deleteFamilyName =() => {}
@@ -50,7 +69,8 @@ const Settings = () => {
                     <div className="w-100 mx-auto mt-2">
                         <label for="OldEmailText" className="form-label text-xl inline-block mb-1 text-gray-700">Old email</label>
                         <input
-                                        type="text"
+                                        onChange={handleOldEmail}
+                                        type="email"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="OldEmailText"
                                         placeholder="example@email.pl"
@@ -60,24 +80,19 @@ const Settings = () => {
                     </div>
                     <div className="w-100 mx-auto mt-2">
                     <label for="NewEmailText" className="form-label text-xl inline-block mb-1 text-gray-700">New Email</label>
-                        <input
-                                        type="text"
+                        <input          
+                                        onChange={handleEmail}
+                                        type="email"
+                                        required value={email}
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="NewEmailText"
                                         placeholder="example@email.pl"
                          />
                     </div>
                     <div className="w-100 mx-auto mt-2">
-                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={changeEmail}>Confirm</button> 
-                    {
-                        isEmailConfirm ? ("") : 
-                        
-                            <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700">Confirmed {isEmailValue}</label>
-    
-    
-                        
-
-                    }
+                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={handleUpdateEmail}>Confirm 
+                    {loading ? (<FontAwesomeIcon icon={faSpinner} spin />) : ''}
+                    </button> 
                     </div>
 
                 </div>
@@ -90,6 +105,7 @@ const Settings = () => {
                     <div className="w-100 mx-auto mt-2">
                         <label for="OldPasswordText" className="form-label text-xl inline-block mb-1 text-gray-700">Old password</label>
                         <input
+                                        onChange={handleOldPassword}
                                         type="text"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="OldPasswordText"
@@ -100,22 +116,16 @@ const Settings = () => {
                     <div className="w-100 mx-auto mt-2">
                     <label for="NewPasswordText" className="form-label text-xl inline-block mb-1 text-gray-700">New password</label>
                         <input
+                                        onChange={handlePassword}
                                         type="text"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         id="NewPasswordText"
                          />
                     </div>
                     <div className="w-100 mx-auto mt-2">
-                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={changePassword}>Confirm</button> 
-                    {
-                        isPassConfirm ? ("") : 
-                        
-                            <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700">Confirmed {isPassValue}</label>
-    
-    
-                        
-
-                    }
+                    <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-10"onClick={handleUpdatePassword}>Confirm
+                    {loading ? (<FontAwesomeIcon icon={faSpinner} spin />) : ''}
+                    </button> 
                     </div>
 
                 </div>
