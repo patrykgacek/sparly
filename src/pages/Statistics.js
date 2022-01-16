@@ -46,7 +46,7 @@ const Statistics = () => {
         return "All Members"
     })
     const handleMember = e => {
-        console.log(e.target.innerHTML)
+        //console.log(e.target.innerHTML)
         var lis =  document.querySelectorAll('.dropdwon-btn li')
         Array.prototype.forEach.call(lis, function(li){
             li.classList.remove('select')
@@ -60,9 +60,14 @@ const Statistics = () => {
         return "days"
     })
     const handleInterval = e =>{
-        console.log(e.target.value)
+        //console.log(e.target.value)
         var interval = e.target.value
         //draw new chart
+        expenseTemp.length = 0;
+        incomeTemp.length = 0;
+        getData()
+        sortByDate(expenseTemp)
+        sortByDate(incomeTemp)
         switch(interval){
             case "days":
                 setData(setChartByDateEquality(10))
@@ -77,6 +82,7 @@ const Statistics = () => {
                 console.log("error time interval unknown")
         }
         setInterval(e.target.value)
+
     }
     function formatDate(d){
         let year = d.getFullYear();
@@ -92,7 +98,8 @@ const Statistics = () => {
     }
    
     function setChart(){
-        console.log(incomeTemp, expenseTemp)
+
+        //console.log(incomeTemp, expenseTemp)
         let arr = []
         let inc = []
         let exp = []
@@ -128,7 +135,9 @@ const Statistics = () => {
         }
         exp.push([previnterval,  sum])
         arr.push(dataHeader)
+        
         for(var i = 0;i<inc.length;i++){
+    
             let t = [inc[i][0], parseInt(inc[i][1]), parseInt(exp[i][1])]
             arr.push(t)
         }
@@ -138,9 +147,12 @@ const Statistics = () => {
 
     //require sorted and normalized data
     function setChartByDateEquality(border){
-        expenseTemp.length = 0;
-        incomeTemp.length = 0;
-        getData()
+        //expenseTemp.length = 0;
+        //incomeTemp.length = 0;
+        //getData()
+        //normalizeData()
+       
+        //console.log(expenseTemp, incomeTemp)
 
         let arr = []
         let inc = []
@@ -177,7 +189,43 @@ const Statistics = () => {
         }
         exp.push([previnterval,  sum])
         arr.push(dataHeader)
+        //console.log("-----------")
+        //console.log(inc, exp)
+        //normalization
+        
+        let present = false
+        for(let i=0;i<inc.length;i++){
+            present = false
+            for(let j=0;j<exp.length;j++){
+                if(inc[i][0]==exp[j][0]){
+                    present = true
+                    break;
+                }
+            }
+            if(present == false){
+                exp.push([inc[i][0], 0])
+            }
+        }
+
+        for(let i=0;i<exp.length;i++){
+            present = false
+            for(let j=0;j<inc.length;j++){
+                if(exp[i][0]==inc[j][0]){
+                    present = true
+                    break;
+                }
+            }
+            if(present == false){
+                inc.push([exp[i][0], 0])
+            }
+        }
+        sortByDateSubData(inc)
+        sortByDateSubData(exp)
+        //emd normalization
+        //console.log("after sth new")
+       // console.log(inc, exp)
         for(var i = 0;i<inc.length;i++){
+            //console.log(i)
             let t = [inc[i][0], parseInt(inc[i][1]), parseInt(exp[i][1])]
             arr.push(t)
         }
@@ -241,20 +289,40 @@ const Statistics = () => {
         //var d2 = data2.split(/.-/).map(Number);
         var d1 = data1.split('-').map(Number);
         var d2 = data2.split('-').map(Number);
-        if(d1[0]>d2[0]){
-            return true;
-        }
-        else if(d1[0] == d2[0]){
-            if(d1[1]>d2[1]){
+        if(d1.length==3){
+            if(d1[0]>d2[0]){
                 return true;
             }
-            else if(d1[1] == d2[1]){
-                if(d1[2]>d2[2]){
+            else if(d1[0] == d2[0]){
+                if(d1[1]>d2[1]){
+                    return true;
+                }
+                else if(d1[1] == d2[1]){
+                    if(d1[2]>d2[2]){
+                        return true;
+                    }
+                }
+            }
+            return false
+        }
+        else if(d1.length==2){
+            if(d1[0]>d2[0]){
+                return true;
+            }
+            else if(d1[0] == d2[0]){
+                if(d1[1]>d2[1]){
                     return true;
                 }
             }
+            return false
+        }
+        else if(d1.length==1){
+            if(d1[0]>d2[0]){
+                return true;
+            }
         }
         return false
+       
     }
     /**
      * check if data1 is newer or equal
@@ -329,6 +397,20 @@ const Statistics = () => {
         }
        
     }
+    function sortByDateSubData(data){
+        var i, j; 
+        var n = data.length
+        for (i = 0; i < n-1; i++){
+            for (j = 0; j < n-i-1; j++) {
+                if (dateNewerThan(data[j][0], data[j+1][0])) {
+                    let temp = data[j]
+                    data[j] = data[j+1]
+                    data[j+1] = temp
+                }
+            }
+        }
+       
+    }
     
     function groupByMonthAverage(data){
         var group = []
@@ -367,6 +449,7 @@ const Statistics = () => {
      * @param {*} date 
      * @returns 
      */
+    /*
     function devConvertDate(date){
         let test = date.split('-')
         if(test.length==3){
@@ -374,49 +457,61 @@ const Statistics = () => {
         }
        let t = date.split('.')
        return `${t[2]}-${t[1]}-${t[0]}`
-   }
+   }*/
    /**
     * fill empty data to make income and expense length equal
     */
     function normalizeData(){
-        sortByDate(expenseTemp)
-        sortByDate(incomeTemp)
-        if(incomeTemp.length!=expenseTemp.length){
-            if(incomeTemp.length<expenseTemp.length){
-                let incomeNew = []
-                for(var i=0;i<expenseTemp.length;i++){
-                    if(incomeTemp.length<=i){
-                        incomeNew.push([expenseTemp[i][0],expenseTemp[i][1],0,0,0])
-                        continue
-                    }
-                    if(incomeTemp.length<=i+1&& incomeTemp[i][1]==expenseTemp[i][1]){
-                        incomeNew.push(incomeTemp[i])
-                    }
-                    else{
-                        incomeNew.push([expenseTemp[i][0],expenseTemp[i][1],0,0,0])
-                    }
+       // sortByDate(expenseTemp)
+        //sortByDate(incomeTemp)
+        let newExp = []
+        for(let i=0;i<incomeTemp.length;i++){
+            newExp.push(["",incomeTemp[i][1],0,0,0])
+        }
+        for(let i=0;i<expenseTemp.length;i++){
+            for(let j =0;j<newExp.length;j++){
+                if(expenseTemp[i][1]==newExp[j][1]){
+
                 }
-                incomeTemp = incomeNew
-            }
-            else{
-                let expenseNew = []
-                for(var i=0;i<incomeTemp.length;i++){
-                    if(expenseTemp.length<=i){
-                        expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
-                        continue
-                    }
-                    
-                    if(expenseTemp[i][1]==expenseTemp[i][1]){
-                        expenseNew.push(expenseTemp[i])
-                    }
-                    else{
-                        expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
-                    }
-                   // console.log(expenseTemp[i], incomeTemp[i])
-                }
-                expenseTemp = expenseNew
             }
         }
+       /* 
+        if(incomeTemp.length<expenseTemp.length){
+            let incomeNew = []
+            for(var i=0;i<expenseTemp.length;i++){
+                if(dateNewerThan(expenseTemp[i][1], incomeTemp[i][1]))
+                if(incomeTemp.length<=i){
+                    incomeNew.push([expenseTemp[i][0],expenseTemp[i][1],0,0,0])
+                    continue
+                }
+                if(incomeTemp.length<=i+1&& incomeTemp[i][1]==expenseTemp[i][1]){
+                    incomeNew.push(incomeTemp[i])
+                }
+                else{
+                    incomeNew.push([expenseTemp[i][0],expenseTemp[i][1],0,0,0])
+                }
+            }
+            incomeTemp = incomeNew
+        }
+        else{
+            let expenseNew = []
+            for(var i=0;i<incomeTemp.length;i++){
+                if(expenseTemp.length<=i){
+                    expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
+                    continue
+                }
+                
+                if(expenseTemp[i][1]==expenseTemp[i][1]){
+                    expenseNew.push(expenseTemp[i])
+                }
+                else{
+                    expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
+                }
+                // console.log(expenseTemp[i], incomeTemp[i])
+            }
+            expenseTemp = expenseNew
+        }*/
+    
     }
     /**
      * Run once on program start
@@ -429,14 +524,14 @@ const Statistics = () => {
     function getData(){
         Object.keys(expense).map(key => { 
             expenseTemp.push([expense[key][EXPENSE.NAME],
-                devConvertDate(expense[key][EXPENSE.DATE]),//remove devConvertDate in release
+                expense[key][EXPENSE.DATE],//remove devConvertDate in release
                 expense[key][EXPENSE.PRICE],
                 expense[key][EXPENSE.FAMILY_MEMBER],
                 expense[key][EXPENSE.CATEGORY]])
         })
         Object.keys(income).map(key => { 
              incomeTemp.push([income[key][INCOME.NAME],
-                devConvertDate(income[key][INCOME.DATE]),//remove devConvertDate in release
+                income[key][INCOME.DATE],//remove devConvertDate in release
                 income[key][INCOME.PRICE],
                 income[key][INCOME.FAMILY_MEMBER],
                 income[key][INCOME.CATEGORY]])
@@ -447,20 +542,23 @@ const Statistics = () => {
             expenseTemp = selectByMember(expenseTemp)
             incomeTemp = selectByMember(incomeTemp)
         }
-        normalizeData()
     }
     /**
      * prepare data for charts and call function to display
      */
     const drawCharts = () => {
         //clear temp data
+        document.getElementById("btn-days").focus()
         expenseTemp.length = 0;
         incomeTemp.length = 0;
         getData()
+        sortByDate(expenseTemp)
+        sortByDate(incomeTemp)
 
-        setData(setChart())
+        //setData(setChart())
         setData1(setChart1())
         setData2(setChart2())
+        setData(setChartByDateEquality(10))
 
     }
     /**
