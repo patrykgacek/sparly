@@ -444,20 +444,6 @@ const Statistics = () => {
         }
         return dataNew
     }
-    /**
-     * Remove in release
-     * @param {*} date 
-     * @returns 
-     */
-    /*
-    function devConvertDate(date){
-        let test = date.split('-')
-        if(test.length==3){
-            return date
-        }
-       let t = date.split('.')
-       return `${t[2]}-${t[1]}-${t[0]}`
-   }*/
    /**
     * fill empty data to make income and expense length equal
     */
@@ -475,43 +461,6 @@ const Statistics = () => {
                 }
             }
         }
-       /* 
-        if(incomeTemp.length<expenseTemp.length){
-            let incomeNew = []
-            for(var i=0;i<expenseTemp.length;i++){
-                if(dateNewerThan(expenseTemp[i][1], incomeTemp[i][1]))
-                if(incomeTemp.length<=i){
-                    incomeNew.push([expenseTemp[i][0],expenseTemp[i][1],0,0,0])
-                    continue
-                }
-                if(incomeTemp.length<=i+1&& incomeTemp[i][1]==expenseTemp[i][1]){
-                    incomeNew.push(incomeTemp[i])
-                }
-                else{
-                    incomeNew.push([expenseTemp[i][0],expenseTemp[i][1],0,0,0])
-                }
-            }
-            incomeTemp = incomeNew
-        }
-        else{
-            let expenseNew = []
-            for(var i=0;i<incomeTemp.length;i++){
-                if(expenseTemp.length<=i){
-                    expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
-                    continue
-                }
-                
-                if(expenseTemp[i][1]==expenseTemp[i][1]){
-                    expenseNew.push(expenseTemp[i])
-                }
-                else{
-                    expenseNew.push([incomeTemp[i][0],incomeTemp[i][1],0,0,0])
-                }
-                // console.log(expenseTemp[i], incomeTemp[i])
-            }
-            expenseTemp = expenseNew
-        }*/
-    
     }
     /**
      * Run once on program start
