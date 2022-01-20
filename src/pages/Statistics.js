@@ -56,9 +56,9 @@ const Statistics = () => {
         setCurrentMember(e.target.innerHTML)
     }
   
-    const [intervalSelection, setInterval] = useState(()=>{
-        return "days"
-    })
+    // const [intervalSelection, setInterval] = useState(()=>{
+    //     return "days"
+    // })
     const handleInterval = e =>{
         //console.log(e.target.value)
         var interval = e.target.value
@@ -81,7 +81,7 @@ const Statistics = () => {
             default:
                 console.log("error time interval unknown")
         }
-        setInterval(e.target.value)
+        //setInterval(e.target.value)
 
     }
     function formatDate(d){
@@ -108,10 +108,10 @@ const Statistics = () => {
 
         for(let i = 0;i<incomeTemp.length;i++){
             let currentinterval = incomeTemp[i][1]
-            if(previnterval == ""){
+            if(previnterval === ""){
                 previnterval = currentinterval
             }
-            else if(currentinterval!=previnterval){
+            else if(currentinterval!==previnterval){
                 inc.push([previnterval,  sum])
                 sum = 0
                 previnterval = currentinterval
@@ -123,10 +123,10 @@ const Statistics = () => {
         previnterval = ""
         for(let i = 0;i<expenseTemp.length;i++){
             let currentinterval = expenseTemp[i][1]
-            if(previnterval == ""){
+            if(previnterval === ""){
                 previnterval = currentinterval
             }
-            else if(currentinterval!=previnterval){
+            else if(currentinterval!==previnterval){
                 exp.push([previnterval,  sum])
                 sum = 0
                 previnterval = currentinterval
@@ -162,10 +162,10 @@ const Statistics = () => {
 
         for(let i = 0;i<incomeTemp.length;i++){
             let currentinterval = incomeTemp[i][1].substring(0,border)
-            if(previnterval == ""){
+            if(previnterval === ""){
                 previnterval = currentinterval
             }
-            else if(currentinterval!=previnterval){
+            else if(currentinterval!==previnterval){
                 inc.push([previnterval,  sum])
                 sum = 0
                 previnterval = currentinterval
@@ -177,10 +177,10 @@ const Statistics = () => {
         previnterval = ""
         for(let i = 0;i<expenseTemp.length;i++){
             let currentinterval = expenseTemp[i][1].substring(0,border)
-            if(previnterval == ""){
+            if(previnterval === ""){
                 previnterval = currentinterval
             }
-            else if(currentinterval!=previnterval){
+            else if(currentinterval!==previnterval){
                 exp.push([previnterval,  sum])
                 sum = 0
                 previnterval = currentinterval
@@ -197,12 +197,12 @@ const Statistics = () => {
         for(let i=0;i<inc.length;i++){
             present = false
             for(let j=0;j<exp.length;j++){
-                if(inc[i][0]==exp[j][0]){
+                if(inc[i][0]===exp[j][0]){
                     present = true
                     break;
                 }
             }
-            if(present == false){
+            if(present === false){
                 exp.push([inc[i][0], 0])
             }
         }
@@ -210,12 +210,12 @@ const Statistics = () => {
         for(let i=0;i<exp.length;i++){
             present = false
             for(let j=0;j<inc.length;j++){
-                if(exp[i][0]==inc[j][0]){
+                if(exp[i][0]===inc[j][0]){
                     present = true
                     break;
                 }
             }
-            if(present == false){
+            if(present === false){
                 inc.push([exp[i][0], 0])
             }
         }
@@ -240,7 +240,7 @@ const Statistics = () => {
             let present = false
             let index
             for(var a = 0;a<arr.length;a++){
-                if(arr[a][0]==expenseTemp[e][4]){
+                if(arr[a][0]===expenseTemp[e][4]){
                     present = true
                     index = a
                     break;
@@ -262,7 +262,7 @@ const Statistics = () => {
             let present = false
             let index
             for(var a = 0;a<arr.length;a++){
-                if(arr[a][0]==incomeTemp[e][4]){
+                if(arr[a][0]===incomeTemp[e][4]){
                     present = true
                     index = a
                     break;
@@ -289,15 +289,15 @@ const Statistics = () => {
         //var d2 = data2.split(/.-/).map(Number);
         var d1 = data1.split('-').map(Number);
         var d2 = data2.split('-').map(Number);
-        if(d1.length==3){
+        if(d1.length===3){
             if(d1[0]>d2[0]){
                 return true;
             }
-            else if(d1[0] == d2[0]){
+            else if(d1[0] === d2[0]){
                 if(d1[1]>d2[1]){
                     return true;
                 }
-                else if(d1[1] == d2[1]){
+                else if(d1[1] === d2[1]){
                     if(d1[2]>d2[2]){
                         return true;
                     }
@@ -305,18 +305,18 @@ const Statistics = () => {
             }
             return false
         }
-        else if(d1.length==2){
+        else if(d1.length===2){
             if(d1[0]>d2[0]){
                 return true;
             }
-            else if(d1[0] == d2[0]){
+            else if(d1[0] === d2[0]){
                 if(d1[1]>d2[1]){
                     return true;
                 }
             }
             return false
         }
-        else if(d1.length==1){
+        else if(d1.length===1){
             if(d1[0]>d2[0]){
                 return true;
             }
@@ -336,11 +336,11 @@ const Statistics = () => {
         if(d1[0]>d2[0]){
             return true;
         }
-        else if(d1[0] == d2[0]){
+        else if(d1[0] === d2[0]){
             if(d1[1]>d2[1]){
                 return true;
             }
-            else if(d1[1] == d2[1]){
+            else if(d1[1] === d2[1]){
                 if(d1[2]>=d2[2]){
                     return true;
                 }
@@ -372,7 +372,7 @@ const Statistics = () => {
     function selectByMember(data){
         var dateNew = []
         for(var i = 0;i<data.length;i++){
-            if(data[i][3]==currentMemberSelection){
+            if(data[i][3]===currentMemberSelection){
                 dateNew.push(data[i])
             }
         }
@@ -412,56 +412,9 @@ const Statistics = () => {
        
     }
     
-    function groupByMonthAverage(data){
-        var group = []
-        for(let m = 1;m<=12;m++){
-            let month = {month: m, sum:0, records:0, average:0.0}
-            group.push(month)
-        }
-        Array.prototype.forEach.call(data, function(record){
-            let month = parseInt(record[1].split('.')[1])-1
-            group[month].sum += parseInt(record[2])
-            group[month].records += 1
-        })
-        for(let m = 0;m<12;m++){
-            group[m].average = group[m].sum/group[m].records
-        }
-        return group
-    }
-    /**
-     * Remove?
-     * @param {*} data 
-     * @param {*} monthNumber 
-     * @returns 
-     */
-    function getMonth(data, monthNumber, yearNumber){
-        var dataNew = []
-        for(var i =0;i<data.length;i++){
-            let temp = data[i][1].split('-')
-            if(temp[1]==monthNumber&&temp[0]==yearNumber){
-                dataNew.push(data[i])
-            }
-        }
-        return dataNew
-    }
-   /**
-    * fill empty data to make income and expense length equal
-    */
-    function normalizeData(){
-       // sortByDate(expenseTemp)
-        //sortByDate(incomeTemp)
-        let newExp = []
-        for(let i=0;i<incomeTemp.length;i++){
-            newExp.push(["",incomeTemp[i][1],0,0,0])
-        }
-        for(let i=0;i<expenseTemp.length;i++){
-            for(let j =0;j<newExp.length;j++){
-                if(expenseTemp[i][1]==newExp[j][1]){
 
-                }
-            }
-        }
-    }
+
+  
     /**
      * Run once on program start
      */
@@ -471,23 +424,23 @@ const Statistics = () => {
     },[expense, income])
 
     function getData(){
-        Object.keys(expense).map(key => { 
+        Object.keys(expense).map(key => ( 
             expenseTemp.push([expense[key][EXPENSE.NAME],
                 expense[key][EXPENSE.DATE],//remove devConvertDate in release
                 expense[key][EXPENSE.PRICE],
                 expense[key][EXPENSE.FAMILY_MEMBER],
                 expense[key][EXPENSE.CATEGORY]])
-        })
-        Object.keys(income).map(key => { 
+        ))
+        Object.keys(income).map(key => ( 
              incomeTemp.push([income[key][INCOME.NAME],
                 income[key][INCOME.DATE],//remove devConvertDate in release
                 income[key][INCOME.PRICE],
                 income[key][INCOME.FAMILY_MEMBER],
                 income[key][INCOME.CATEGORY]])
-         })
+        ))
         expenseTemp =  getDateRange(expenseTemp)
         incomeTemp =  getDateRange(incomeTemp)
-        if(currentMemberSelection!="All Members"){
+        if(currentMemberSelection!=="All Members"){
             expenseTemp = selectByMember(expenseTemp)
             incomeTemp = selectByMember(incomeTemp)
         }
@@ -516,7 +469,7 @@ const Statistics = () => {
      */
     const dropList = (e) => {
         var ul = e.target.nextElementSibling
-        if(ul.style.display!="flex"){
+        if(ul.style.display!=="flex"){
             ul.style.display = "flex"
         }
         else{
@@ -549,7 +502,7 @@ const Statistics = () => {
                             Object.keys(familyMembers).length ? (
                                 Object.keys(familyMembers).map(key => { 
                                     return (
-                                        <li onClick={handleMember}>{familyMembers[key][FAMILY_MEMBERS.NAME]}</li>
+                                        <li key={familyMembers[key][FAMILY_MEMBERS.NAME]} onClick={handleMember}>{familyMembers[key][FAMILY_MEMBERS.NAME]}</li>
                                     )
                                 })
                             ) : <li>No Members</li>
@@ -563,9 +516,9 @@ const Statistics = () => {
                     <div  className={`border-solid rounded-lg shadow-lg py-5 text-center text-3xl rounded-md`} >
                        <div style={{display:'flex', flexDirection:'row', justifyContent:'center'}}>
                      
-                            <button type="button" id="btn-days" value="days" onClick={handleInterval} class="rounded-l inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Days</button>
-                            <button type="button" value="months" onClick={handleInterval}  class="inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Months</button>
-                            <button type="button" value="years"  onClick={handleInterval} class="rounded-r inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Years</button>
+                            <button type="button" id="btn-days" value="days" onClick={handleInterval} className="rounded-l inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Days</button>
+                            <button type="button" value="months" onClick={handleInterval}  className="inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Months</button>
+                            <button type="button" value="years"  onClick={handleInterval} className="rounded-r inline-block px-4 py-1.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-500 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out">Years</button>
                         </div>
                        
                         <Chart

@@ -120,18 +120,18 @@ const SavingGoal = props => {
     return (
         <div className={`border-solid py-1 px-1 border-2  border-black-400 text-3xl rounded-lg ${isCancelForm ? "h-52" : "h-80"} ${isPayToGoalForm ? "h-52" : "h-80"} ${isPayFromGoalForm ? "h-52" : "h-80"} ${isEditForm ? "h-52" : "h-80"}`}>
                     <div className="w-3/12 h-48 inline-block bg-blue-200 float-left text-center border-solid border-2 border-white rounded-lg">
-                        <label for="exampleFormControlInput1" className="form-label text-xl w-full inline-block mt-5  text-gray-700">Goal name: {props.title}</label>
-                        <label for="exampleFormControlInput1" className="form-label text-xl w-full inline-block mt-5  text-gray-700">Create date: {props.actualD}</label>
-                        <label for="exampleFormControlInput1" className="form-label text-xl w-full inline-block mt-5  text-gray-700">Completion date: {props.completionDate}</label>
+                        <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full inline-block mt-5  text-gray-700">Goal name: {props.title}</label>
+                        <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full inline-block mt-5  text-gray-700">Create date: {props.actualD}</label>
+                        <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full inline-block mt-5  text-gray-700">Completion date: {props.completionDate}</label>
                     </div>
                     <div className="w-7/12 h-48 float-left bg-blue-200 border-solid border-2 border-white rounded-lg">
                         <div className="w-11/12 bg-gray-200 h-1 mx-auto">
                             <div className="bg-blue-600 h-1 mt-9" style={{width:(props.actualA*100/props.goalAmount)+'%'}}></div>
-                            <label for="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block mt-7 mb-1 text-gray-700"> Actual amount: {props.actualA}</label>
-                            <label for="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block text-center mt-7 mb-1 text-gray-700">{props.actualA*100/props.goalAmount}%</label>
-                            <label for="exampleFormControlInput1" className="form-label text-xl w-1/3 text-right inline-block mt-7 mb-1 text-gray-700">Goal amount: {props.goalAmount}</label>
-                            <label for="exampleFormControlInput1" className="form-label text-xl w-full text-center inline-block mb-1 text-gray-700">Time interwal: {props.timeIn}</label>
-                            <label for="exampleFormControlInput1" className="form-label text-xl w-full text-center inline-block mt-1 mb-1 text-gray-700">Description: {props.description}</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block mt-7 mb-1 text-gray-700"> Actual amount: {props.actualA}</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block text-center mt-7 mb-1 text-gray-700">{props.actualA*100/props.goalAmount}%</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 text-right inline-block mt-7 mb-1 text-gray-700">Goal amount: {props.goalAmount}</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full text-center inline-block mb-1 text-gray-700">Time interwal: {props.timeIn}</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full text-center inline-block mt-1 mb-1 text-gray-700">Description: {props.description}</label>
                         </div>
 
                     </div>
@@ -147,7 +147,7 @@ const SavingGoal = props => {
 
                             <div className="flex float-left w-full mx-auto justify-center">
 
-                                <label for="exampleFormControlInput1" className="form-label text-xl inline-block mt-7 mb-1 text-gray-700">Are you sure that you want delete goal?</label>
+                                <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mt-7 mb-1 text-gray-700">Are you sure that you want delete goal?</label>
 
                                 <button onClick={handleDelete} className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-7">Submit</button>
 
@@ -161,7 +161,7 @@ const SavingGoal = props => {
 
                             <form onSubmit={payToGoal} className="flex float-left w-full justify-center">
 
-                                <label for="exampleFormControlInput1" className="form-label mt-8 text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleFormControlInput1" className="form-label mt-8 text-xl inline-block mb-1 text-gray-700"
                                 >How much do you want to deposit:</label
                                 >
                                 
@@ -186,7 +186,7 @@ const SavingGoal = props => {
 
                             <form onSubmit={payFromGoal} className="flex float-left w-full justify-center">
 
-                                <label for="exampleFormControlInput1" className="form-label mt-8 text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleFormControlInput1" className="form-label mt-8 text-xl inline-block mb-1 text-gray-700"
                                 >How much do you want to withdraw from goal:</label
                                 >
                                 <input
@@ -210,7 +210,7 @@ const SavingGoal = props => {
                             
                             <form onSubmit={handleUpdate} class="flex float-left w-full justify-center">
                             <div className="mb-3 lg:w-60">
-                                <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                 >Goal name</label
                                 >
                                 <input
@@ -225,7 +225,7 @@ const SavingGoal = props => {
 
                             </div>
                             <div className="mb-3 lg:w-60">
-                                <label for="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
                                 >Goal Amount</label
                                 >
                                 <input
@@ -240,7 +240,7 @@ const SavingGoal = props => {
                             </div>
 
                             <div className="mb-3 lg:w-60">
-                                <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                 >Completion Date</label
                                 >
                                 <input 
@@ -254,7 +254,7 @@ const SavingGoal = props => {
 
                             </div>
                             <div className="mb-3 lg:w-60">
-                                <label for="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
                                 >Time interval</label
                                 >
                                 <input
@@ -268,7 +268,7 @@ const SavingGoal = props => {
                                 />
                             </div>
                             <div className="mb-3 lg:w-60">
-                                <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                 >Description</label
                                 >
                                 <input

@@ -8,18 +8,15 @@ import { useDatabase } from "../context/DatabaseContext";
 import { todayDate } from "../utils"
 
 const Dashboard = () => {
-    const { expense, setLoadExpense, income, setLoadIncome, addExpense, addIncome, categories, familyMembers, userInfo, updateUserInfo } = useDatabase()
-    useEffect(() => {
-        setLoadExpense(true)
-        setLoadIncome(true)
-    }, [])
+    const { expense, income, addExpense, addIncome, categories, familyMembers, userInfo, updateUserInfo } = useDatabase()
+
     useEffect(() => {
         setFamilyMemberExpense(userInfo[USER_INFO.NAME])
         setFamilyMemberIncome(userInfo[USER_INFO.NAME])
     }, [userInfo])
 
     const [nameExpense, setNameExpense] = useState('')
-    const [correctionAmount,setCorrectionAmount] = useState('')
+    //const [correctionAmount,setCorrectionAmount] = useState('')
     const [dateExpense, setDateExpense] = useState(todayDate())
     const [priceExpense, setPriceExpense] = useState('')
     const [familyMemberExpense, setFamilyMemberExpense] = useState(userInfo[USER_INFO.NAME])
@@ -31,7 +28,7 @@ const Dashboard = () => {
     const handleFamilyMemberExpense = e => setFamilyMemberExpense(e.target.value)
     const handleCategoryExpense = e => setCategoryExpense(e.target.value)
     const handleDescriptionExpense = e => setDescriptionExpense(e.target.value)
-    const handleCorrectionAmount = e => setCorrectionAmount(e.target.value)
+    //const handleCorrectionAmount = e => setCorrectionAmount(e.target.value)
 
     const [nameIncome, setNameIncome] = useState('')
     const [dateIncome, setDateIncome] = useState(todayDate())
@@ -46,7 +43,7 @@ const Dashboard = () => {
     const handleCategoryIncome = e => setCategoryIncome(e.target.value)
     const handleDescriptionIncome = e => setDescriptionIncome(e.target.value)
     const handleExpnInc = () => {
-        if (currentValue == "-") {
+        if (currentValue === "-") {
             return (
                 <div className="flex items-center justify-center">
                     <div className="md:w-96 flex items-center justify-center">
@@ -121,7 +118,7 @@ const Dashboard = () => {
                 </div>
             )
         }
-        if (currentValue == "+") {
+        if (currentValue === "+") {
             return (
                 <div className="flex items-center justify-center">
                     <div className="md:w-96 flex items-center justify-center">
@@ -197,20 +194,20 @@ const Dashboard = () => {
         }
     }
     const handleCorrectionC = e =>{
-        if(currentValue == "-"){
+        if(currentValue === "-"){
             setPriceExpense(e.target.value)
 
          }
-         if(currentValue=="+"){
+         if(currentValue==="+"){
             setPriceIncome(e.target.value)
          }
          e.preventDefault()
     }
     const handleCorretion = () =>{
-        if(currentValue == "-"){
+        if(currentValue === "-"){
            handleAddExpenseChange()
         }
-        if(currentValue=="+"){
+        if(currentValue==="+"){
            handleAddIncomeChange()
         }
     }
@@ -235,10 +232,12 @@ const Dashboard = () => {
             value: "-",
         },
     ];
-    const [isButtonPresse, setButtonPresse] = useState(true);
-    const Confirm = () => {
-        setButtonPresse(!isButtonPresse)
-    }
+    //const [isButtonPresse, setButtonPresse] = useState(true);
+
+    // const Confirm = () => {
+    //     setButtonPresse(!isButtonPresse)
+    // }
+
     const handlesetCurrentValue = e => {
         setCurrentValue(e.target.value)
     }
@@ -311,7 +310,7 @@ const Dashboard = () => {
         setFamilyMemberExpense('')
         setCategoryExpense('')
         setDescriptionExpense('')
-        setCorrectionAmount('')
+        //setCorrectionAmount('')
     }
     const handleAddIncomeChange = () => {
         const newIncome = {
@@ -334,8 +333,10 @@ const Dashboard = () => {
         setFamilyMemberIncome('')
         setCategoryIncome('')
         setDescriptionIncome('')
-        setCorrectionAmount('')
+        //setCorrectionAmount('')
     }
+
+
     return (
         <Layout>
             <div className={`border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md`}> Budget
@@ -357,11 +358,11 @@ const Dashboard = () => {
                                      m-0
                                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" onChange={handlesetCurrentValue}>
                             {options.map((option) => (
-                                <option value={option.value}>{option.label}</option>
+                                <option key={option.value} value={option.value}>{option.label}</option>
                             ))}
                         </select>
 
-                        <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                        <div className="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
                             <button type="button" className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out" onClick={Add}>Add</button>
                             <button type="button" className=" rounded-r inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out" onClick={Change}> Change Budget</button>
                         </div>
@@ -412,7 +413,7 @@ const Dashboard = () => {
                 }
 
             </div>
-            <div className="border-solid border-2 border-black-600 py-5 text-center text-3xl rounded-md">Budget History
+            <div className="border-solid border-2 border-black-600 py-5 text-center rounded-md">Budget History
                 <div className="py-5 text-center text-3xl rounded-md">Expense</div>
                 <div className="flex flex-col">
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -437,7 +438,7 @@ const Dashboard = () => {
                                                         <tr key={key}>
                                                             <td className="px-6">{expense[key][EXPENSE.NAME]}</td>
                                                             <td className="px-6">{expense[key][EXPENSE.DATE]}</td>
-                                                            <td className="px-6">{expense[key][EXPENSE.PRICE]} {userInfo[USER_INFO.CURRENCY_SYMBOL]}</td>
+                                                            <td className="px-6 text-right">{expense[key][EXPENSE.PRICE]} {userInfo[USER_INFO.CURRENCY_SYMBOL]}</td>
                                                             <td className="px-6">{expense[key][EXPENSE.FAMILY_MEMBER]}</td>
                                                             <td className="px-6">{expense[key][EXPENSE.CATEGORY]}</td>
                                                             <td className="px-6">{expense[key][EXPENSE.DESCRIPTION]}</td>
@@ -490,6 +491,7 @@ const Dashboard = () => {
 }
 
 export default Dashboard;
+
 const Input = ({ id, label, type, onChange, value, ...rest }) => {
     return (
         <div className="mb-3">

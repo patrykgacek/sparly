@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SavingGoal from "../components/Savings/SavingGoal";
 import { useDatabase } from "../context/DatabaseContext";
 import { SAVINGS_GOAL } from "../constans";
@@ -29,7 +29,7 @@ const Savings = () => {
     const handletimeInterval = e => settimeInterval(e.target.value)
     const handledescription = e => setdescription(e.target.value)
     
-    const { savingsGoal, setLoadSavingsGoal, updateSavingsGoal, addSavingsGoal } = useDatabase() // Baza danych
+    const { savingsGoal, addSavingsGoal } = useDatabase() // Baza danych
 
 
 
@@ -59,10 +59,6 @@ const Savings = () => {
         settimeInterval("");
         setisAddForm(false);
     }
-    
-    useEffect(() => {
-        setLoadSavingsGoal(true)
-    },[])
 
 
 
@@ -80,7 +76,7 @@ const Savings = () => {
                         isAddForm ? ("") : (
                             <form onSubmit={handleAddGoal} class="flex justify-center mt-5">
                                 <div className="mb-3 lg:w-60">
-                                    <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                     >Goal name</label
                                     >
                                     <input
@@ -95,7 +91,7 @@ const Savings = () => {
 
                                 </div>
                                 <div className="mb-3 lg:w-60">
-                                    <label for="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    <label htmlFor="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
                                     >Goal Amount</label
                                     >
                                     <input
@@ -110,7 +106,7 @@ const Savings = () => {
                                 </div>
 
                                 <div className="mb-3 lg:w-60">
-                                    <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                     >Completion Date</label
                                     >
                                     <input 
@@ -124,7 +120,7 @@ const Savings = () => {
 
                                 </div>
                                 <div className="mb-3 lg:w-60">
-                                    <label for="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    <label htmlFor="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
                                     >Time interval</label
                                     >
                                     <input
@@ -138,7 +134,7 @@ const Savings = () => {
                                     />
                                 </div>
                                 <div className="mb-3 lg:w-60">
-                                    <label for="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
+                                    <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                     >Description</label
                                     >
                                     <input

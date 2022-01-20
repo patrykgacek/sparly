@@ -54,13 +54,13 @@ export const DatabaseProvider = ({children}) => {
         return update(ref(database), updates)
     }
 
-    useEffect(() => getFromDatabase(loadExpense, PATH.EXPENSE, setExpense), [getFromDatabase, loadExpense])
-    useEffect(() => getFromDatabase(loadIncome, PATH.INCOME, setIncome), [getFromDatabase, loadIncome])
-    useEffect(() => getFromDatabase(loadSavingsGoal, PATH.SAVINGS_GOAL, setSavingsGoal), [getFromDatabase, loadSavingsGoal])
+    useEffect(() => getFromDatabase(true, PATH.EXPENSE, setExpense), [getFromDatabase, loadExpense])
+    useEffect(() => getFromDatabase(true, PATH.INCOME, setIncome), [getFromDatabase, loadIncome])
+    useEffect(() => getFromDatabase(true, PATH.SAVINGS_GOAL, setSavingsGoal), [getFromDatabase, loadSavingsGoal])
     useEffect(() => getFromDatabase(true, PATH.CATEGORIES, setCategories), [getFromDatabase])
     useEffect(() => getFromDatabase(true, PATH.FAMILY_MEMBERS, setFamilyMembers), [getFromDatabase])
     useEffect(() => getFromDatabase(true, PATH.USER_INFO, setUserInfo), [getFromDatabase])
-    useEffect(() => getFromDatabase(loadTestData, PATH.TEST, setTestData), [getFromDatabase, loadTestData]) // DEV [!]
+    useEffect(() => getFromDatabase(true, PATH.TEST, setTestData), [getFromDatabase, loadTestData]) // DEV [!]
 
     const updateExpense = (key, newData) => updateDatabase(key, newData, PATH.EXPENSE)
     const addExpense = (newData) => addToDatabase(newData, PATH.EXPENSE)
@@ -89,7 +89,7 @@ export const DatabaseProvider = ({children}) => {
         
         const newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
         const defaultCategory = {
-            [CATEGORIES.NAME]: 'default'
+            [CATEGORIES.NAME]: 'Other'
         }
         updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
 
