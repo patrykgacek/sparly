@@ -1,6 +1,6 @@
 import { child, onValue, push, ref, update } from "firebase/database";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { CATEGORIES, FAMILY_MEMBERS, PATH, USER_INFO } from "../constans";
+import { CATEGORIES, PATH } from "../constans";
 import { database } from "../firebase";
 import { useAuth } from "./AuthContext";
 
@@ -87,17 +87,29 @@ export const DatabaseProvider = ({children}) => {
         const updates = {}
         updates[userUID + PATH.USER_INFO] = newUserInfo;
         
-        const newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
-        const defaultCategory = {
-            [CATEGORIES.NAME]: 'Other'
-        }
+        let newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        let defaultCategory = {[CATEGORIES.NAME]: 'Food'}
         updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
 
-        const newFamilyMemberKey = push(child(ref(database), userUID + PATH.FAMILY_MEMBERS)).key
-        const defaultFamilyMember = {
-            [FAMILY_MEMBERS.NAME]: newUserInfo[USER_INFO.NAME]
-        }
-        updates[userUID + PATH.FAMILY_MEMBERS + newFamilyMemberKey] = defaultFamilyMember;
+        newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        defaultCategory = {[CATEGORIES.NAME]: 'Housing'}
+        updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
+
+        newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        defaultCategory = {[CATEGORIES.NAME]: 'Transportation'}
+        updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
+
+        newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        defaultCategory = {[CATEGORIES.NAME]: 'Medical & Healthcare'}
+        updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
+
+        newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        defaultCategory = {[CATEGORIES.NAME]: 'Utilities'}
+        updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
+
+        newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
+        defaultCategory = {[CATEGORIES.NAME]: 'Payment'}
+        updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
 
         return update(ref(database), updates)
     }

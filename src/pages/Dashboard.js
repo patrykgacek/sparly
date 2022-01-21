@@ -81,6 +81,7 @@ const Dashboard = () => {
                                 onChange={handleFamilyMemberExpense}
                                 value={familyMemberExpense}
                                 required>
+                                <option value={userInfo[USER_INFO.NAME]}>{userInfo[USER_INFO.NAME]}</option>
                                 {!!familyMembers ? (
                                     Object.keys(familyMembers).length ? (
                                         Object.keys(familyMembers).map(key => {
@@ -96,6 +97,7 @@ const Dashboard = () => {
                                 onChange={handleCategoryExpense}
                                 value={categoryExpense}
                                 required>
+                                <option value="Other">Other</option>
                                 {!!categories ? (
                                     Object.keys(categories).length ? (
                                         Object.keys(categories).map(key => {
@@ -155,6 +157,7 @@ const Dashboard = () => {
                                 label="Family Member"
                                 onChange={handleFamilyMemberIncome}
                                 value={familyMemberIncome}>
+                                <option value={userInfo[USER_INFO.NAME]}>{userInfo[USER_INFO.NAME]}</option>
                                 {!!familyMembers ? (
                                     Object.keys(familyMembers).length ? (
                                         Object.keys(familyMembers).map(key => {
@@ -169,6 +172,7 @@ const Dashboard = () => {
                                 label="Category"
                                 onChange={handleCategoryIncome}
                                 value={categoryIncome}>
+                                <option value="Other">Other</option>
                                 {!!categories ? (
                                     Object.keys(categories).length ? (
                                         Object.keys(categories).map(key => {

@@ -86,11 +86,12 @@ const SavingGoal = props => {
         const newActualAmount = parseFloat(props.actualA) + parseFloat(deposit);
         const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) - parseFloat(deposit);
         const newExpense = {
-            [EXPENSE.NAME]: 'Deposit to saving goal '+props.title,
+            [EXPENSE.NAME]: 'Deposit to saving goal',
             [EXPENSE.DATE]: todayDate(),
             [EXPENSE.PRICE]: deposit,
             [EXPENSE.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
             [EXPENSE.CATEGORY]: 'Savings Goal',
+            [INCOME.DESCRIPTION]: props.title,
         }
         addExpense(newExpense);
         updateSavingsGoal(props.id+"/"+[SAVINGS_GOAL.ACTUAL_AMOUNT],newActualAmount);
@@ -104,11 +105,12 @@ const SavingGoal = props => {
         const newActualAmount = parseFloat(props.actualA) - parseFloat(withdraw);
         const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) + parseFloat(withdraw);
         const newIncome = {
-            [INCOME.NAME]: 'Withdraw from saving goal '+props.title,
+            [INCOME.NAME]: 'Withdraw from saving goal',
             [INCOME.DATE]: todayDate(),
             [INCOME.PRICE]: withdraw,
             [INCOME.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
             [INCOME.CATEGORY]: 'Savings Goal',
+            [INCOME.DESCRIPTION]: props.title,
         }
         addIncome(newIncome);
         updateSavingsGoal(props.id+"/"+[SAVINGS_GOAL.ACTUAL_AMOUNT],newActualAmount);

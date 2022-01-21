@@ -22,6 +22,7 @@ import { DatabaseProvider } from "./context/DatabaseContext"
 import BazaTesty2 from "./roboczy/BazaTesty2"
 import BazaDodawanie from "./roboczy/BazaDodawanie"
 import SampleData from "./roboczy/SampleData"
+import ResetPassword from "./pages/ResetPassword"
 
 const App = () => {
     return (
@@ -69,6 +70,12 @@ const App = () => {
             <Route path='signup' element={
                 <PublicRoute>
                     <SignUp />
+                </PublicRoute>
+            } />
+
+            <Route path='resetpassword' element={
+                <PublicRoute>
+                    <ResetPassword />
                 </PublicRoute>
             } />
 

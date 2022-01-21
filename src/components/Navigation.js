@@ -1,4 +1,4 @@
-import { faChartPie, faCog, faCoins, faInfo, faPiggyBank, faRadiation, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faChartPie, faCog, faCoins, faInfo, faPiggyBank, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import HeaderBar from "./HeaderBar";
 import NavItem from "./NavItem";
@@ -17,11 +17,11 @@ const Navigation = () => {
                     <hr className="my-2"></hr>
                     <NavItem icon={faCog} to='/settings'>Settings</NavItem>
                     <NavLogout icon={faSignOutAlt} >Logout</NavLogout>
-                    <hr className="my-2"></hr>
+                    {/* <hr className="my-2"></hr>
                     <NavItem icon={faRadiation} to='/user'>DevUser</NavItem>
                     <NavItem icon={faRadiation} to='/baza'>DevDatabase</NavItem>
                     <NavItem icon={faRadiation} to='/baza2'>DevDatabase2</NavItem>
-                    <NavItem icon={faRadiation} to='/baza-add'>DevDatabaseAdd</NavItem>
+                    <NavItem icon={faRadiation} to='/baza-add'>DevDatabaseAdd</NavItem> */}
                     <div className="mt-5 text-center text-xs text-gray-400 invisible md:visible">
                         <Link to="/authors">
                             <span dangerouslySetInnerHTML={{ "__html": "&copy; " }} />

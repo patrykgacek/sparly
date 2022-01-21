@@ -1,7 +1,7 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import ButtonPrimary from "../components/Tailwind/ButtonPrimary"
 import Input from "../components/Tailwind/Input"
 import ToastError from "../components/Tailwind/ToastError"
@@ -13,7 +13,6 @@ const SignIn = () => {
     const [alert, setAlert] = useState('')
     const [loading, setLoading] = useState(false)
     const { signin, developerLogin } = useAuth()
-    const navigate = useNavigate()
 
     const handleEmail = e => setEmail(e.target.value)
     const handlePassword = e => setPassword(e.target.value)
@@ -24,11 +23,21 @@ const SignIn = () => {
         try {
             setLoading(true)
             await signin(email, password)
-            navigate('/dashboard')
         } catch (error) {
-            //const errorCode = error.code;
-            const errorMessage = error.message;
-            setAlert(errorMessage)
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    setAlert('Invalid Email')
+                    break
+                case 'auth/user-not-found':
+                    setAlert('User not found')
+                    break
+                case 'auth/wrong-password':
+                    setAlert('Wrong password')
+                    break
+                default:
+                    setAlert(error.message)
+                    break
+            }
             setLoading(false)
         }
     }
@@ -37,7 +46,6 @@ const SignIn = () => {
         try {
             setLoading(true)
             await developerLogin()
-            navigate('/dashboard')
         } catch (error) {
             console.log(error)
         }
@@ -62,11 +70,11 @@ const SignIn = () => {
                     {loading ? (<FontAwesomeIcon icon={faSpinner} spin />) : ('Login')}
                 </ButtonPrimary>
                 <p className="text-right mt-5">
+                    <Link to="/resetpassword">Don't remember your password? <span className="text-blue-500">Reset!</span></Link>
+                    <br /><br />
                     <Link to="/signup">Don't have an account? <span className="text-blue-500">SignUp!</span></Link>
                     <br />
                     <button type="button" onClick={handleDeveloperLogin} className="text-red-600 py-3 my-1">Signin [Developer]</button>
-                    <br />
-                    <Link to="/user" className="text-red-600">Manage user [Developer]</Link>
                 </p>
                 
             </form>
