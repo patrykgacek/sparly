@@ -33,14 +33,8 @@ const Statistics = () => {
         return formatDate(d)
     });
 
-    const { expense,income, userInfo, familyMembers, setLoadExpense, setLoadIncome } = useDatabase()
+    const { expense,income, userInfo, familyMembers } = useDatabase()
     const currencySymbol = userInfo[USER_INFO.CURRENCY_SYMBOL]
-    useEffect(() => {
-        setLoadExpense(true)
-    })
-    useEffect(() => {
-        setLoadIncome(true)
-    })
     
     const [currentMemberSelection, setCurrentMember] = useState(()=>{
         return "All Members"
