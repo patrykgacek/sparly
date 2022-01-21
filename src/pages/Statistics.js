@@ -415,13 +415,7 @@ const Statistics = () => {
 
 
   
-    /**
-     * Run once on program start
-     */
-    useEffect(()=>{
-        document.getElementById('btn-days').focus()
-        drawCharts()
-    },[expense, income])
+   
 
     function getData(){
         Object.keys(expense).map(key => ( 
@@ -463,6 +457,15 @@ const Statistics = () => {
         setData(setChartByDateEquality(10))
 
     }
+
+     /**
+     * Run once on program start
+     */
+    useEffect(()=>{
+        document.getElementById('btn-days').focus()
+        document.getElementById('sumbit-charts').click()
+    },[])
+
     /**
      * Display or hide drop list
      * @param {*} e DOM element
