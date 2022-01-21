@@ -1,2 +1,0 @@
-To był ten pierwszy komponent generowany przy zbudowaniu tego całego środowiska
-(polecenie: npx create-react-app nazwa-apki)

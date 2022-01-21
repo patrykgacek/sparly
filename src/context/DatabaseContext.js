@@ -19,22 +19,14 @@ export const DatabaseProvider = ({children}) => {
     const [userInfo, setUserInfo] = useState(false)
     const [categories, setCategories] = useState(false)
     const [familyMembers, setFamilyMembers] = useState(false)
-
-    const [expense, setExpense] = useState(false)
-    const [loadExpense, setLoadExpense] = useState(false)
-
-    const [income, setIncome] = useState(false)
-    const [loadIncome, setLoadIncome] = useState(false)
-
+    const [expense, setExpense] = useState(false)  
+    const [income, setIncome] = useState(false) 
     const [savingsGoal, setSavingsGoal] = useState(false)
-    const [loadSavingsGoal, setLoadSavingsGoal] = useState(false)
+   
 
-    const [testData, setTestData] = useState(false) // DEV [!]
-    const [loadTestData, setLoadTestData] = useState(false) // DEV [!]
-
-    const getFromDatabase = useCallback((load, path, setState) => {
+    const getFromDatabase = useCallback((path, setState) => {
         return (
-            load && currentUser && 
+            currentUser && 
             onValue(ref(database, currentUser.uid + path), snapshot => {
                 !snapshot.val() ? setState({}) : setState(snapshot.val())
             })
@@ -54,13 +46,12 @@ export const DatabaseProvider = ({children}) => {
         return update(ref(database), updates)
     }
 
-    useEffect(() => getFromDatabase(true, PATH.EXPENSE, setExpense), [getFromDatabase, loadExpense])
-    useEffect(() => getFromDatabase(true, PATH.INCOME, setIncome), [getFromDatabase, loadIncome])
-    useEffect(() => getFromDatabase(true, PATH.SAVINGS_GOAL, setSavingsGoal), [getFromDatabase, loadSavingsGoal])
-    useEffect(() => getFromDatabase(true, PATH.CATEGORIES, setCategories), [getFromDatabase])
-    useEffect(() => getFromDatabase(true, PATH.FAMILY_MEMBERS, setFamilyMembers), [getFromDatabase])
-    useEffect(() => getFromDatabase(true, PATH.USER_INFO, setUserInfo), [getFromDatabase])
-    useEffect(() => getFromDatabase(true, PATH.TEST, setTestData), [getFromDatabase, loadTestData]) // DEV [!]
+    useEffect(() => getFromDatabase(PATH.EXPENSE, setExpense), [getFromDatabase])
+    useEffect(() => getFromDatabase(PATH.INCOME, setIncome), [getFromDatabase])
+    useEffect(() => getFromDatabase(PATH.SAVINGS_GOAL, setSavingsGoal), [getFromDatabase])
+    useEffect(() => getFromDatabase(PATH.CATEGORIES, setCategories), [getFromDatabase])
+    useEffect(() => getFromDatabase(PATH.FAMILY_MEMBERS, setFamilyMembers), [getFromDatabase])
+    useEffect(() => getFromDatabase(PATH.USER_INFO, setUserInfo), [getFromDatabase])
 
     const updateExpense = (key, newData) => updateDatabase(key, newData, PATH.EXPENSE)
     const addExpense = (newData) => addToDatabase(newData, PATH.EXPENSE)
@@ -79,8 +70,7 @@ export const DatabaseProvider = ({children}) => {
     const addFamilyMembers = (newData) => addToDatabase(newData, PATH.FAMILY_MEMBERS)
     const updateFamilyMembers = (key, newData) => updateDatabase(key, newData, PATH.FAMILY_MEMBERS)
     
-    const updateTestData = (key, newData) => updateDatabase(key, newData, PATH.TEST) // DEV [!]
-    const addTestData = (newData) => addToDatabase(newData, PATH.TEST) // DEV [!]
+    
 
     // Register new user, setup default values
     const updateUserInfoWithUID = (newUserInfo, userUID) => {
@@ -127,26 +117,18 @@ export const DatabaseProvider = ({children}) => {
         addCategories,
 
         expense,
-        setLoadExpense,
         updateExpense,
         addExpense,
 
         income,
-        setLoadIncome,
         updateIncome,
         addIncome,
 
         savingsGoal,
-        setLoadSavingsGoal,
         updateSavingsGoal,
         addSavingsGoal,
 
         updateUserInfoWithUID,
-
-        testData,           // DEV [!]
-        setLoadTestData,    // DEV [!]
-        updateTestData,     // DEV [!]
-        addTestData,        // DEV [!]
     }
 
     return (
