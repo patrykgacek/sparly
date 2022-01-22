@@ -197,6 +197,7 @@ const Dashboard = () => {
         }
     }
     const handleCorrectionC = e =>{
+        e.preventDefault()
         if(parseFloat(e.target.value)<parseFloat(userInfo[USER_INFO.BALANCE])){
             setPriceExpense(e.target.value)
 
@@ -206,13 +207,15 @@ const Dashboard = () => {
          }
          e.preventDefault()
     }
-    const handleCorretion = () =>{
+    const handleCorretion = e =>{
+        e.preventDefault()
         if(parseFloat(priceExpense)<parseFloat(userInfo[USER_INFO.BALANCE])){
            handleAddExpenseChange()
         }
         if(parseFloat(priceIncome)>parseFloat(userInfo[USER_INFO.BALANCE])){
            handleAddIncomeChange()
         }
+        
     }
 
 

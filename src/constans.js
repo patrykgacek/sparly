@@ -45,14 +45,7 @@ export const SAVINGS_GOAL = {
     NAME: 'name',
     CREATE_DATE: 'createDate',
     COMPLETION_DATE: 'completionDate',
-    TIME_INTERVAL: 'timeInterval',
     ACTUAL_AMOUNT: 'actualAmount',
     GOAL_AMOUNT: 'goalAmount',
     DESCRIPTION: 'description'
-}
-
-
-export const TEST_DATA = {
-    POLE1: 'stringValueInDatabase',
-    POLE2: 'numberValueInDatabase'
 }

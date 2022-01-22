@@ -1,7 +1,8 @@
 import { child, onValue, push, ref, update } from "firebase/database";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { CATEGORIES, PATH } from "../constans";
+import { CATEGORIES, PATH, SAVINGS_GOAL } from "../constans";
 import { database } from "../firebase";
+import { todayDate } from "../utils";
 import { useAuth } from "./AuthContext";
 
 // ============================================================
@@ -100,6 +101,17 @@ export const DatabaseProvider = ({children}) => {
         newCategoryKey = push(child(ref(database), userUID + PATH.CATEGORIES)).key
         defaultCategory = {[CATEGORIES.NAME]: 'Payment'}
         updates[userUID + PATH.CATEGORIES + newCategoryKey] = defaultCategory;
+
+        const newSavingGoalKey = push(child(ref(database), userUID + PATH.SAVINGS_GOAL)).key
+        const newSavingGoal = {
+            [SAVINGS_GOAL.NAME]: "Financial cushion",
+            [SAVINGS_GOAL.GOAL_AMOUNT]: 10000,
+            [SAVINGS_GOAL.COMPLETION_DATE]: todayDate(),
+            [SAVINGS_GOAL.DESCRIPTION]: "Financial safety cushion is a certain amount of money that a person will spend in case he loses his job or has any problems: in business, health, household emergencies",
+            [SAVINGS_GOAL.CREATE_DATE]: todayDate(),
+            [SAVINGS_GOAL.ACTUAL_AMOUNT]: 0,
+        }
+        updates[userUID + PATH.SAVINGS_GOAL + newSavingGoalKey] = newSavingGoal;
 
         return update(ref(database), updates)
     }

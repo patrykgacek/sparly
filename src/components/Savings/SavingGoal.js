@@ -15,7 +15,6 @@ const SavingGoal = props => {
     const [name, setName] = useState(props.title) 
     const [goalAmount, setgoalAmount] = useState(props.goalAmount) 
     const [completionDate, setcompletionDate] = useState(props.completionDate) 
-    const [timeInterval, settimeInterval] = useState(props.timeIn) 
     const [description, setdescription] = useState(props.description) 
     const [deposit, setdeposit] = useState("") 
     const [withdraw, setwithdraw] = useState("") 
@@ -24,7 +23,6 @@ const SavingGoal = props => {
     const handleName = e => setName(e.target.value)
     const handlegoalAmount = e => setgoalAmount(e.target.value)
     const handlecompletionDate = e => setcompletionDate(e.target.value)
-    const handletimeInterval = e => settimeInterval(e.target.value)
     const handledescription = e => setdescription(e.target.value)
     const handledeposit = e => setdeposit(e.target.value)
     const handlewithdraw = e => setwithdraw(e.target.value)
@@ -67,7 +65,6 @@ const SavingGoal = props => {
             [SAVINGS_GOAL.NAME]: name,
             [SAVINGS_GOAL.GOAL_AMOUNT]: goalAmount,
             [SAVINGS_GOAL.COMPLETION_DATE]: completionDate,
-            [SAVINGS_GOAL.TIME_INTERVAL]: timeInterval,
             [SAVINGS_GOAL.DESCRIPTION]: description,
             [SAVINGS_GOAL.CREATE_DATE]: props.actualD,
             [SAVINGS_GOAL.ACTUAL_AMOUNT]: props.actualA,
@@ -78,17 +75,29 @@ const SavingGoal = props => {
     }
 
     const handleDelete = () =>{
+        const newBalance = userInfo[USER_INFO.BALANCE] + props.actualA
+        updateUserInfo([USER_INFO.BALANCE], newBalance)
         updateSavingsGoal(props.id,null);
     }
 
     const payToGoal = e =>{
         e.preventDefault();
-        const newActualAmount = parseFloat(props.actualA) + parseFloat(deposit);
-        const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) - parseFloat(deposit);
+        let tmpUserBalance =  parseFloat(userInfo[USER_INFO.BALANCE])
+        let tmpDeposit = parseFloat(deposit)
+        let newActualAmount = parseFloat(props.actualA) + tmpDeposit;
+        let tmpGoalAmount = parseFloat(props.goalAmount)
+
+        if (newActualAmount > tmpGoalAmount) {
+            tmpDeposit -= newActualAmount - props.goalAmount
+            newActualAmount = props.goalAmount
+        }
+        const newBalance = tmpUserBalance - tmpDeposit;
+
+
         const newExpense = {
             [EXPENSE.NAME]: 'Deposit to saving goal',
             [EXPENSE.DATE]: todayDate(),
-            [EXPENSE.PRICE]: deposit,
+            [EXPENSE.PRICE]: tmpDeposit,
             [EXPENSE.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
             [EXPENSE.CATEGORY]: 'Savings Goal',
             [INCOME.DESCRIPTION]: props.title,
@@ -102,12 +111,26 @@ const SavingGoal = props => {
 
     const payFromGoal = e =>{
         e.preventDefault();
-        const newActualAmount = parseFloat(props.actualA) - parseFloat(withdraw);
-        const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) + parseFloat(withdraw);
+
+        if (parseFloat(props.actualA) === 0) return
+
+        //const newActualAmount = parseFloat(props.actualA) - parseFloat(withdraw);
+        //const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) + parseFloat(withdraw);
+
+        let tmpUserBalance =  parseFloat(userInfo[USER_INFO.BALANCE])
+        let tmpWithdraw = parseFloat(withdraw)
+        let newActualAmount = parseFloat(props.actualA) - tmpWithdraw;
+        //let tmpGoalAmount = parseFloat(props.goalAmount)
+
+        if (newActualAmount < 0) {
+            tmpWithdraw -= Math.abs(newActualAmount)
+            newActualAmount = 0
+        }
+        const newBalance = tmpUserBalance + tmpWithdraw;
         const newIncome = {
             [INCOME.NAME]: 'Withdraw from saving goal',
             [INCOME.DATE]: todayDate(),
-            [INCOME.PRICE]: withdraw,
+            [INCOME.PRICE]: tmpWithdraw,
             [INCOME.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
             [INCOME.CATEGORY]: 'Savings Goal',
             [INCOME.DESCRIPTION]: props.title,
@@ -129,10 +152,9 @@ const SavingGoal = props => {
                     <div className="w-7/12 h-48 float-left bg-blue-200 border-solid border-2 border-white rounded-lg">
                         <div className="w-11/12 bg-gray-200 h-1 mx-auto">
                             <div className="bg-blue-600 h-1 mt-9" style={{width:(props.actualA*100/props.goalAmount)+'%'}}></div>
-                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block mt-7 mb-1 text-gray-700"> Actual amount: {props.actualA}</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block mt-7 mb-1 text-gray-700"> Actual amount: {props.actualA} {userInfo[USER_INFO.CURRENCY_SYMBOL]}</label>
                             <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 inline-block text-center mt-7 mb-1 text-gray-700">{props.actualA*100/props.goalAmount}%</label>
-                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 text-right inline-block mt-7 mb-1 text-gray-700">Goal amount: {props.goalAmount}</label>
-                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full text-center inline-block mb-1 text-gray-700">Time interwal: {props.timeIn}</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-1/3 text-right inline-block mt-7 mb-1 text-gray-700">Goal amount: {props.goalAmount} {userInfo[USER_INFO.CURRENCY_SYMBOL]}</label>
                             <label htmlFor="exampleFormControlInput1" className="form-label text-xl w-full text-center inline-block mt-1 mb-1 text-gray-700">Description: {props.description}</label>
                         </div>
 
@@ -175,6 +197,8 @@ const SavingGoal = props => {
                                     id="exampleNumber0"
                                     placeholder="Amount"
                                     required
+                                    min="0"
+                                    max={parseFloat(props.goalAmount) - parseFloat(props.actualA)}
                                 />
                                 <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-7">Submit</button>
 
@@ -199,6 +223,8 @@ const SavingGoal = props => {
                                     id="exampleNumber0"
                                     placeholder="Amount"
                                     required
+                                    min="0"
+                                    max={props.actualA}
                                 />
                                 <button className="w-44 h-10 border-solid border-2 rounded-md text-lg  hover:bg-black-100 mx-4 mt-7">Submit</button>
 
@@ -255,20 +281,7 @@ const SavingGoal = props => {
                                     
 
                             </div>
-                            <div className="mb-3 lg:w-60">
-                                <label htmlFor="exampleNumber0" className="form-label text-xl inline-block mb-1 text-gray-700"
-                                >Time interval</label
-                                >
-                                <input
-                                    onChange={handletimeInterval}
-                                    value={timeInterval}
-                                    type="number"
-                                    className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out mx-2 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                    id="exampleNumber0"
-                                    placeholder="Time interval"
-                                    required
-                                />
-                            </div>
+
                             <div className="mb-3 lg:w-60">
                                 <label htmlFor="exampleFormControlInput1" className="form-label text-xl inline-block mb-1 text-gray-700"
                                 >Description</label
