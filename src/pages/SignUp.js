@@ -18,7 +18,7 @@ const SignUp = () => {
     const [nameFamily, setNameFamily] = useState('')
     const [alert, setAlert] = useState('')
     const [loading, setLoading] = useState(false)
-    const { signup, developerLogin } = useAuth()
+    const { signup } = useAuth()
     const { updateUserInfoWithUID } = useDatabase()
 
     const handleEmail = e => setEmail(e.target.value)
@@ -65,15 +65,6 @@ const SignUp = () => {
         }
     }
 
-    const handleDeveloperLogin = async () => {
-        try {
-            setLoading(true)
-            await developerLogin()
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     return (
         <div className="flex justify-center items-center bg-gradient-to-br from-green-200 via-blue-100 to-green-200 min-h-screen p-5">
             <form onSubmit={register} className="w-full max-w-md bg-white p-10 rounded-xl ">      
@@ -114,8 +105,6 @@ const SignUp = () => {
                 </ButtonPrimary>
                 <p className="text-right mt-5">
                     <Link to="/signin">Already have an account? <span className="text-blue-500">SignIn!</span></Link>
-                    <br />
-                    <button type="button" onClick={handleDeveloperLogin} className="text-red-600 py-2 my-1">Signin [Developer]</button>
                 </p>
             </form>
         </div>

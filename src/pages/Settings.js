@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { useDatabase } from "../context/DatabaseContext";
 import { useAuth } from "../context/AuthContext"
@@ -8,7 +8,7 @@ import {CATEGORIES, FAMILY_MEMBERS, USER_INFO } from "../constans";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 const Settings = () => {
 
-    const {currentUser, updEmail, updPassword} = useAuth();
+    const {currentUser, updEmail, updPassword, emailConfirm} = useAuth();
     const {userInfo, updateUserInfo, familyMembers, addFamilyMembers, categories, addCategories} = useDatabase()
 
     const [error, setError] = useState('')
@@ -94,6 +94,22 @@ const Settings = () => {
             setInfo('')
         }
     }
+
+    const veryfyEmail = useCallback(() => {
+        try {
+            emailConfirm()
+        } catch (error) {
+            setInfo(error.message)
+        }
+        setInfo('Email send to ' + currentUser.email)
+        setError('')
+    }, [currentUser.email, emailConfirm])
+
+    useEffect(() => {
+        if (!currentUser.emailVerified) {
+            setError(<button onClick={veryfyEmail}>Verify your e-mail - Click here</button>)
+        }
+    }, [currentUser.emailVerified, veryfyEmail])
 
     
     return (

@@ -12,7 +12,7 @@ const SignIn = () => {
     const [password, setPassword] = useState('')
     const [alert, setAlert] = useState('')
     const [loading, setLoading] = useState(false)
-    const { signin, developerLogin } = useAuth()
+    const { signin } = useAuth()
 
     const handleEmail = e => setEmail(e.target.value)
     const handlePassword = e => setPassword(e.target.value)
@@ -42,15 +42,6 @@ const SignIn = () => {
         }
     }
 
-    const handleDeveloperLogin = async () => {
-        try {
-            setLoading(true)
-            await developerLogin()
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     return (
         <div className="flex justify-center items-center bg-gradient-to-br from-green-200 via-blue-100 to-green-200 h-screen p-5">
             <form onSubmit={login} className="w-full max-w-md bg-white p-10 rounded-xl">
@@ -73,8 +64,6 @@ const SignIn = () => {
                     <Link to="/resetpassword">Don't remember your password? <span className="text-blue-500">Reset!</span></Link>
                     <br /><br />
                     <Link to="/signup">Don't have an account? <span className="text-blue-500">SignUp!</span></Link>
-                    <br />
-                    <button type="button" onClick={handleDeveloperLogin} className="text-red-600 py-3 my-1">Signin [Developer]</button>
                 </p>
                 
             </form>
