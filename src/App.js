@@ -7,6 +7,9 @@ import Savings from "./pages/Savings"
 import LearnMore from "./pages/LearnMore"
 import Authors from "./pages/Authors"
 import Article01 from "./articles/Article01"
+import Article02 from "./articles/Article02"
+import Article03 from "./articles/Article03"
+import Article04 from "./articles/Article04"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import { AuthProvider } from "./context/AuthContext"
@@ -33,6 +36,9 @@ const App = () => {
             <Route path='resetpassword' element={<PublicRoute><ResetPassword /></PublicRoute>} />
             {/* Articles paths: */}
             <Route path='learnmore/article01' element={<PrivateRoute><Article01 /></PrivateRoute>} />
+            <Route path='learnmore/article02' element={<PrivateRoute><Article02 /></PrivateRoute>} />
+            <Route path='learnmore/article03' element={<PrivateRoute><Article03 /></PrivateRoute>} />
+            <Route path='learnmore/article04' element={<PrivateRoute><Article04 /></PrivateRoute>} />
         </Routes>
         </DatabaseProvider>
         </AuthProvider>
