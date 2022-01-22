@@ -57,6 +57,9 @@ const SignUp = () => {
                 case 'auth/weak-password':
                     setAlert('Password should be at least 6 characters')
                     break
+                case 'auth/email-already-in-use':
+                    setAlert('Email already in use')
+                    break
                 default:
                     setAlert(error.message)
                     break
