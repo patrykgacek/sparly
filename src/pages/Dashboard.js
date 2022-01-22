@@ -303,7 +303,7 @@ const Dashboard = () => {
             [EXPENSE.DESCRIPTION]: 'Balance Change'
         }
 
-        const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) - parseFloat(priceExpense)
+        const newBalance = parseFloat(priceExpense)
 
        addExpense(newExpense)
        updateUserInfo([USER_INFO.BALANCE], newBalance)
@@ -326,7 +326,7 @@ const Dashboard = () => {
             [INCOME.DESCRIPTION]: 'Balance Change'
         }
 
-        const newBalance = parseFloat(userInfo[USER_INFO.BALANCE]) + parseFloat(priceIncome)
+        const newBalance = parseFloat(priceIncome)
 
         addIncome(newIncome)
         updateUserInfo([USER_INFO.BALANCE], newBalance)
