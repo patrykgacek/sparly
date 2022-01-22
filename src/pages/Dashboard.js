@@ -16,7 +16,6 @@ const Dashboard = () => {
     }, [userInfo])
 
     const [nameExpense, setNameExpense] = useState('')
-    //const [correctionAmount,setCorrectionAmount] = useState('')
     const [dateExpense, setDateExpense] = useState(todayDate())
     const [priceExpense, setPriceExpense] = useState('')
     const [familyMemberExpense, setFamilyMemberExpense] = useState(userInfo[USER_INFO.NAME])
@@ -28,7 +27,6 @@ const Dashboard = () => {
     const handleFamilyMemberExpense = e => setFamilyMemberExpense(e.target.value)
     const handleCategoryExpense = e => setCategoryExpense(e.target.value)
     const handleDescriptionExpense = e => setDescriptionExpense(e.target.value)
-    //const handleCorrectionAmount = e => setCorrectionAmount(e.target.value)
 
     const [nameIncome, setNameIncome] = useState('')
     const [dateIncome, setDateIncome] = useState(todayDate())
@@ -42,6 +40,7 @@ const Dashboard = () => {
     const handleFamilyMemberIncome = e => setFamilyMemberIncome(e.target.value)
     const handleCategoryIncome = e => setCategoryIncome(e.target.value)
     const handleDescriptionIncome = e => setDescriptionIncome(e.target.value)
+
     const handleExpnInc = () => {
         if (currentValue === "-") {
             return (
@@ -198,20 +197,20 @@ const Dashboard = () => {
         }
     }
     const handleCorrectionC = e =>{
-        if(currentValue === "-"){
+        if(parseFloat(e.target.value)<parseFloat(userInfo[USER_INFO.BALANCE])){
             setPriceExpense(e.target.value)
 
          }
-         if(currentValue==="+"){
+         if(parseFloat(e.target.value)>parseFloat(userInfo[USER_INFO.BALANCE])){
             setPriceIncome(e.target.value)
          }
          e.preventDefault()
     }
     const handleCorretion = () =>{
-        if(currentValue === "-"){
+        if(parseFloat(priceExpense)<parseFloat(userInfo[USER_INFO.BALANCE])){
            handleAddExpenseChange()
         }
-        if(currentValue==="+"){
+        if(parseFloat(priceIncome)>parseFloat(userInfo[USER_INFO.BALANCE])){
            handleAddIncomeChange()
         }
     }
@@ -236,11 +235,6 @@ const Dashboard = () => {
             value: "-",
         },
     ];
-    //const [isButtonPresse, setButtonPresse] = useState(true);
-
-    // const Confirm = () => {
-    //     setButtonPresse(!isButtonPresse)
-    // }
 
     const handlesetCurrentValue = e => {
         setCurrentValue(e.target.value)
@@ -297,7 +291,7 @@ const Dashboard = () => {
         const newExpense = {
             [EXPENSE.NAME]: 'Budget correction',
             [EXPENSE.DATE]: todayDate(),
-            [EXPENSE.PRICE]: priceExpense,
+            [EXPENSE.PRICE]: parseFloat(userInfo[USER_INFO.BALANCE]) - parseFloat(priceExpense),
             [EXPENSE.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
             [EXPENSE.CATEGORY]: 'Correction',
             [EXPENSE.DESCRIPTION]: 'Balance Change'
@@ -314,13 +308,12 @@ const Dashboard = () => {
         setFamilyMemberExpense('')
         setCategoryExpense('')
         setDescriptionExpense('')
-        //setCorrectionAmount('')
     }
     const handleAddIncomeChange = () => {
         const newIncome = {
             [INCOME.NAME]: 'Budget correction',
             [INCOME.DATE]: todayDate(),
-            [INCOME.PRICE]: priceIncome,
+            [INCOME.PRICE]: parseFloat(priceIncome)-parseFloat(userInfo[USER_INFO.BALANCE]),
             [INCOME.FAMILY_MEMBER]: userInfo[USER_INFO.NAME],
             [INCOME.CATEGORY]: 'Correction',
             [INCOME.DESCRIPTION]: 'Balance Change'
@@ -337,7 +330,6 @@ const Dashboard = () => {
         setFamilyMemberIncome('')
         setCategoryIncome('')
         setDescriptionIncome('')
-        //setCorrectionAmount('')
     }
 
 
